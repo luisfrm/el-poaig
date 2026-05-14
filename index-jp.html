@@ -166,6 +166,15 @@
             padding: 0 48px;
             border-bottom: 1px solid rgba(196, 162, 101, 0.08);
         }
+        button.navbar-toggler {
+            display: none;
+            position: absolute;
+            left: 10px;
+            background: transparent;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+        }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--cream);
@@ -531,6 +540,7 @@
             .press-card .press-pub { font-size: 20px; }
             .press-card .press-quote { font-size: 16px; }
             .press-track-wrapper::before, .press-track-wrapper::after { width: 40px; }
+            button.navbar-toggler { display: block; }
         }
 
         /* ======================== HORIZONTAL DIVIDER ======================== */
@@ -1390,8 +1400,68 @@
             50% { background-position: -200% center; }
         }
 
+        /* ======================== MOBILE MENU ======================== */
+        .mobile-menu {
+            display: none;
+        }
+
         /* ======================== RESPONSIVE ======================== */
         @media (max-width: 900px) {
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: var(--charcoal);
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                padding: 0 24px;
+            }
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+            .mobile-menu-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: 70px;
+                margin-bottom: 60px;
+            }
+            .mobile-menu-header .nav-logo {
+                position: static;
+                transform: none;
+                text-align: left;
+            }
+            .mobile-menu-close {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                color: var(--cream);
+            }
+            .mobile-menu-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+            .mobile-menu-links a {
+                font-family: 'Playfair Display', serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--cream);
+                text-decoration: none;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                transition: color 0.3s;
+            }
+            .mobile-menu-links a:hover {
+                color: var(--gold);
+            }
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
             nav {
@@ -1457,6 +1527,9 @@
 
     <!-- NAV -->
     <nav id="navbar">
+        <button class="navbar-toggler" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="icons/hamburger-menu.svg" class="burger-menu" alt="Menu">
+        </button>
         <ul class="nav-links">
             <li><a href="#philosophy">哲学</a></li>
             <li><a href="#product">オリエラ</a></li>
@@ -1472,6 +1545,29 @@
             <li><a href="https://www.elpoaig.com" target="_blank">店舗</a></li>
         </ul>
     </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="nav-logo">
+                <div class="logo-text">EL POAIG</div>
+                <div class="logo-sub">千年のオリーブ</div>
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="メニューを閉じる">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6l12 12M6 18L18 6" stroke="var(--cream)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="mobile-menu-links">
+            <li><a href="#philosophy">哲学</a></li>
+            <li><a href="#product">オリエラ</a></li>
+            <li><a href="#process">製法</a></li>
+            <li><a href="#reviews">評価</a></li>
+            <li><a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank">購入</a></li>
+            <li><a href="https://www.elpoaig.com" target="_blank">店舗</a></li>
+        </ul>
+    </div>
 
     <!-- HERO -->
     <section class="hero">
@@ -2111,6 +2207,34 @@
         document.querySelectorAll('.hero-title .word').forEach((word, i) => {
             word.style.transitionDelay = `${0.4 + i * 0.12}s`;
         });
+
+        // ===== MOBILE MENU TOGGLE =====
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        if (navbarToggler && mobileMenu) {
+            navbarToggler.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        if (mobileMenuClose && mobileMenu) {
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
     </script>
 
 </body>
