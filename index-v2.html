@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>EL POAIG — Olive Oil from Millennial Trees</title>
+    <link rel="icon" type="image/jpeg" href="icons/favicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #C4A265;
+            --gold-light: #D4B878;
+            --olive-dark: #3A3A2A;
+            --cream: #F7F1E6;
+            --stone: #E8E0D0;
+            --charcoal: #1A1A14;
+            --olive-green: #6B7B3A;
+            --warm-white: #FAF8F3;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--charcoal);
+            color: var(--cream);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ======================== CINEMATIC FILTER ======================== */
+        .cinematic-wrapper {
+            filter: contrast(1.05) saturate(0.88) sepia(0.06) brightness(0.98);
+        }
+        .vignette {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%);
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* ======================== SCROLL PROGRESS BAR ======================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            z-index: 10001;
+            transition: width 0.05s linear;
+        }
+
+        /* ======================== CUSTOM CURSOR ======================== */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .cursor.hover {
+            width: 48px;
+            height: 48px;
+            background: rgba(196, 162, 101, 0.1);
+            border-color: var(--gold-light);
+        }
+
+        /* ======================== LOADER ======================== */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--charcoal);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            color: var(--cream);
+            opacity: 0;
+            animation: loaderFadeIn 1s ease 0.3s forwards;
+        }
+        .loader-line {
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            margin-top: 20px;
+            animation: loaderLine 1.8s ease 0.6s forwards;
+        }
+        .loader-sub {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 16px;
+            opacity: 0;
+            animation: loaderFadeIn 0.8s ease 1s forwards;
+        }
+        @keyframes loaderFadeIn { to { opacity: 1; } }
+        @keyframes loaderLine { to { width: 120px; } }
+
+        /* ======================== GRAIN OVERLAY ======================== */
+        .grain {
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grainAnim 0.5s steps(1) infinite;
+        }
+        @keyframes grainAnim {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            30% { transform: translate(3%, -15%); }
+            50% { transform: translate(12%, 9%); }
+            70% { transform: translate(9%, 4%); }
+            90% { transform: translate(-1%, 7%); }
+        }
+
+        /* ======================== NAV ======================== */
+        nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 100;
+            min-height: 80px;
+            padding: 0 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        nav.scrolled {
+            background: rgba(26, 26, 20, 0.92);
+            backdrop-filter: blur(16px);
+            padding: 0 48px;
+            border-bottom: 1px solid rgba(196, 162, 101, 0.08);
+        }
+        button.navbar-toggler {
+            display: none;
+            position: absolute;
+            left: 10px;
+            background: transparent;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+        }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.4s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .nav-logo .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: var(--cream);
+            line-height: 1.1;
+        }
+        .nav-logo .logo-sub {
+            font-size: 8px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 3px;
+        }
+
+        /* ======================== HERO ======================== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100svh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transform: scale(1.05);
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(26, 26, 20, 0.5) 0%,
+                rgba(26, 26, 20, 0.4) 40%,
+                rgba(26, 26, 20, 0.7) 100%
+            );
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 0 48px;
+            width: 100%;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--cream);
+        }
+        .hero-title .line1, .hero-title .line2, .hero-title .line3 {
+            display: block;
+            overflow: visible;
+        }
+        .hero-title .word {
+            display: inline-block;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+        }
+        .hero-title.animate .word { transform: translateY(0); opacity: 1; }
+        .hero-title .line1 { font-size: clamp(44px, 7vw, 110px); }
+        .hero-title .line2 {
+            font-size: clamp(44px, 7vw, 110px);
+            padding-left: 10%;
+        }
+        .hero-title .line2 em {
+            font-style: italic;
+            color: var(--cream);
+        }
+        .hero-title .line3 {
+            font-size: clamp(44px, 7vw, 110px);
+            text-align: right;
+            padding-right: 5%;
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-bottom {
+            position: absolute;
+            bottom: 48px; left: 48px; right: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 3;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s;
+        }
+        .hero-bottom.animate { opacity: 1; transform: translateY(0); }
+        .hero-badge {
+            background: rgba(196, 162, 101, 0.08);
+            border: 1px solid rgba(196, 162, 101, 0.25);
+            backdrop-filter: blur(12px);
+            padding: 20px 28px;
+            border-radius: 2px;
+        }
+        .hero-badge .badge-label {
+            font-size: 8px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .hero-badge .badge-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--cream);
+        }
+        .hero-tagline { max-width: 420px; text-align: right; }
+        .hero-tagline p {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 2;
+            color: rgba(247, 241, 230, 0.7);
+        }
+        .hero-tagline .discover-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.4s;
+        }
+        .discover-link .arrow {
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--gold);
+            position: relative;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .discover-link .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0; top: -3px;
+            width: 8px; height: 8px;
+            border-right: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            transform: rotate(-45deg);
+        }
+        .discover-link:hover .arrow { width: 50px; }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.5s forwards;
+        }
+        .scroll-indicator span {
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(247,241,230,0.4);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.3; transform: scaleY(0.6); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, 20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        /* ======================== OLIVE BRANCH DIVIDER ======================== */
+        .olive-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+            margin: -1px 0;
+        }
+        .olive-divider svg {
+            width: 280px;
+            height: 40px;
+            opacity: 0.3;
+        }
+
+        /* ======================== PRESS CAROUSEL ======================== */
+        .section-press {
+            padding: 100px 0;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(196, 162, 101, 0.06);
+            border-bottom: 1px solid rgba(196, 162, 101, 0.06);
+            overflow: hidden;
+            position: relative;
+        }
+        .press-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .press-header .press-label {
+            font-size: 8px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.6;
+        }
+        .press-track-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .press-track-wrapper::before,
+        .press-track-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 120px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .press-track-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--charcoal), transparent);
+        }
+        .press-track-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--charcoal), transparent);
+        }
+        .press-track {
+            display: flex;
+            gap: 0;
+            animation: pressScroll 50s linear infinite;
+            width: max-content;
+        }
+        .press-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes pressScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .press-card {
+            flex-shrink: 0;
+            width: 380px;
+            padding: 44px 48px;
+            border-right: 1px solid rgba(196, 162, 101, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 3px;
+            position: relative;
+        }
+        .press-card:hover {
+            background: var(--cream);
+            transform: scale(1.05);
+            z-index: 3;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+            border-color: transparent;
+        }
+        .press-card .press-pub {
+            font-family: 'Playfair Display', serif;
+            font-size: 29px;
+            font-weight: 700;
+            color: var(--cream);
+            opacity: 0.5;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            transition: color 0.4s ease, opacity 0.4s ease;
+        }
+        .press-card:hover .press-pub {
+            color: var(--charcoal);
+            opacity: 1;
+        }
+        .press-card .press-logo {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+            object-fit: contain;
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        .press-card:hover .press-logo {
+            opacity: 1;
+            filter: brightness(0.15);
+        }
+        .press-card .press-line {
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 20px;
+            opacity: 0.4;
+            transition: background 0.4s ease, opacity 0.4s ease;
+        }
+        .press-card:hover .press-line {
+            background: var(--olive-green);
+            opacity: 0.6;
+        }
+        .press-card .press-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--cream);
+            opacity: 0.6;
+            line-height: 1.6;
+            transition: color 0.4s ease, opacity 0.4s ease;
+        }
+        .press-card:hover .press-quote {
+            color: var(--olive-dark);
+            opacity: 0.8;
+        }
+        @media (max-width: 900px) {
+            .section-press { padding: 60px 0; }
+            .press-card { width: 280px; padding: 28px 32px; }
+            .press-card .press-pub { font-size: 20px; }
+            .press-card .press-quote { font-size: 16px; }
+            .press-track-wrapper::before, .press-track-wrapper::after { width: 40px; }
+            button.navbar-toggler { display: block; }
+        }
+
+        /* ======================== HORIZONTAL DIVIDER ======================== */
+        .gold-divider {
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            background: var(--charcoal);
+        }
+        .divider-inner {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            padding: 24px 0;
+        }
+        .divider-inner span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+        .divider-dot {
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            flex-shrink: 0;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ======================== PHILOSOPHY ======================== */
+        .section-philosophy {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 220px 48px;
+            background: var(--warm-white);
+            overflow: hidden;
+        }
+        .topo-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+        .philosophy-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1100px;
+        }
+        .philosophy-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(44px, 6.5vw, 96px);
+            font-weight: 900;
+            color: var(--charcoal);
+            line-height: 1.08;
+        }
+        .philosophy-text h2 em {
+            font-style: italic;
+            color: var(--olive-green);
+        }
+        .floating-img {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .floating-img.visible { opacity: 1; }
+        .floating-img img { width: 100%; height: 100%; object-fit: cover; }
+        .float-1 { width: 180px; height: 220px; top: 12%; left: 6%; transform: rotate(-6deg) translateY(40px); }
+        .float-1.visible { transform: rotate(-6deg) translateY(0); }
+        .float-2 { width: 200px; height: 200px; bottom: 15%; right: 5%; transform: rotate(5deg) translateY(40px); }
+        .float-2.visible { transform: rotate(5deg) translateY(0); }
+
+        .philosophy-sub {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .philosophy-sub .sub-title {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--olive-dark);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .philosophy-sub p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.9;
+            color: var(--olive-dark);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ======================== GALLERY ======================== */
+        .section-gallery {
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(0.85);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1);
+        }
+        .gallery-item .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 36px;
+            background: linear-gradient(to top, rgba(26,26,20,0.85) 0%, transparent 100%);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-caption span {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .gallery-caption p {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--cream);
+            margin-top: 6px;
+        }
+
+        /* Image reveal animation */
+        .gallery-item .img-reveal {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--charcoal);
+            z-index: 2;
+            transform-origin: left;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .gallery-item.revealed .img-reveal {
+            transform: scaleX(0);
+        }
+
+        /* ======================== ORIGIN ======================== */
+        .section-origin {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 220px 48px;
+            background: var(--warm-white);
+            overflow: hidden;
+        }
+        .origin-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1100px;
+        }
+        .origin-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(44px, 6.5vw, 96px);
+            font-weight: 900;
+            color: var(--charcoal);
+            line-height: 1.08;
+        }
+        .origin-text h2 em { font-style: italic; color: var(--olive-green); }
+        .origin-sub {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .origin-sub .sub-title {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--olive-dark);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .origin-sub p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--olive-dark);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ======================== VIDEO CINEMATIC ======================== */
+        .section-video-cinematic {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+        .section-video-cinematic video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+        }
+        .section-video-cinematic .video-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(26, 26, 20, 0.3) 0%,
+                rgba(26, 26, 20, 0.15) 40%,
+                rgba(26, 26, 20, 0.5) 100%
+            );
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-quote { text-align: center; max-width: 800px; padding: 0 48px; }
+        .video-quote h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 4vw, 56px);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--cream);
+            line-height: 1.3;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+        }
+        .video-quote .quote-line {
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            margin: 28px auto;
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-quote.visible .quote-line { width: 80px; }
+        .video-quote .quote-attr {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-shadow: 0 1px 10px rgba(0,0,0,0.4);
+        }
+
+        /* ======================== PRODUCT ======================== */
+        .section-product {
+            position: relative;
+            padding: 240px 48px;
+            background: var(--charcoal);
+            overflow: hidden;
+        }
+        .section-product::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(196, 162, 101, 0.04) 0%, transparent 60%);
+        }
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        .product-image { position: relative; }
+        .product-image .img-frame {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--olive-dark);
+            position: relative;
+        }
+        /* Gold halo glow behind product */
+        .product-image .img-frame::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; height: 120%;
+            background: radial-gradient(ellipse, rgba(196, 162, 101, 0.15) 0%, rgba(196, 162, 101, 0.05) 40%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: haloGlow 6s ease-in-out infinite alternate;
+        }
+        @keyframes haloGlow {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+        }
+        .product-image .img-frame img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
+        }
+        .product-image:hover .img-frame img { transform: scale(1.04); }
+        .product-image .img-frame::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 1px solid rgba(196, 162, 101, 0.15);
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        /* Gold corner frame — all 4 corners */
+        .product-image .gold-frame {
+            position: absolute;
+            top: -16px; left: -16px; right: -16px; bottom: -16px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .product-image .gold-frame::before,
+        .product-image .gold-frame::after {
+            content: '';
+            position: absolute;
+            width: 50px; height: 50px;
+            border-color: var(--gold);
+            border-style: solid;
+            opacity: 0.25;
+        }
+        .product-image .gold-frame::before {
+            top: 0; left: 0;
+            border-width: 1px 0 0 1px;
+        }
+        .product-image .gold-frame::after {
+            bottom: 0; right: 0;
+            border-width: 0 1px 1px 0;
+        }
+        .product-image .gold-frame-extra::before,
+        .product-image .gold-frame-extra::after {
+            content: '';
+            position: absolute;
+            width: 50px; height: 50px;
+            border-color: var(--gold);
+            border-style: solid;
+            opacity: 0.25;
+        }
+        .product-image .gold-frame-extra {
+            position: absolute;
+            top: -16px; left: -16px; right: -16px; bottom: -16px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .product-image .gold-frame-extra::before {
+            top: 0; right: 0;
+            border-width: 1px 1px 0 0;
+        }
+        .product-image .gold-frame-extra::after {
+            bottom: 0; left: 0;
+            border-width: 0 0 1px 1px;
+        }
+        .product-image .edition-tag {
+            position: absolute;
+            bottom: -16px; right: -16px;
+            background: var(--gold);
+            color: var(--charcoal);
+            padding: 14px 22px;
+            border-radius: 2px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(196, 162, 101, 0.3);
+            z-index: 3;
+        }
+        .product-info { padding: 20px 0; }
+        .product-info .product-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .product-label::before {
+            content: '';
+            width: 30px; height: 1px;
+            background: var(--gold);
+        }
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 900;
+            color: var(--cream);
+            line-height: 1.1;
+            margin-bottom: 28px;
+        }
+        .product-info .product-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(247, 241, 230, 0.7);
+            margin-bottom: 48px;
+        }
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-bottom: 56px;
+        }
+        .detail-item {
+            border-top: 1px solid rgba(196, 162, 101, 0.15);
+            padding-top: 18px;
+        }
+        .detail-item .detail-label {
+            font-size: 8px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .detail-item .detail-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--cream);
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 48px;
+            background: var(--gold);
+            color: var(--charcoal);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-family: 'IBM Plex Mono', monospace;
+            border: none;
+            cursor: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover {
+            background: var(--cream);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(196, 162, 101, 0.35);
+        }
+
+        /* ======================== PROCESS ======================== */
+        .section-process {
+            padding: 220px 48px;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        .process-header { text-align: center; margin-bottom: 120px; }
+        .process-header .section-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--olive-green);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .process-header .section-label::before,
+        .process-header .section-label::after {
+            content: '';
+            width: 40px; height: 1px;
+            background: var(--olive-green);
+            opacity: 0.4;
+        }
+        .process-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            color: var(--charcoal);
+        }
+        .process-steps {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            position: relative;
+        }
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 44px;
+            left: 16.6%;
+            right: 16.6%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(107, 123, 58, 0.2), transparent);
+        }
+        .step { text-align: center; }
+        .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 900;
+            background: linear-gradient(to bottom, rgba(107, 123, 58, 0.15), rgba(107, 123, 58, 0.03));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--olive-dark);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .step-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(58, 58, 42, 0.7);
+        }
+
+        /* ======================== COUNTER SECTION ======================== */
+        .section-counter {
+            padding: 140px 48px;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(196, 162, 101, 0.08);
+            border-bottom: 1px solid rgba(196, 162, 101, 0.08);
+        }
+        .counter-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .counter-item .counter-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        .counter-item .counter-line {
+            width: 30px;
+            height: 1px;
+            background: rgba(196, 162, 101, 0.3);
+            margin: 0 auto 16px;
+        }
+        .counter-item .counter-label {
+            font-size: 8px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(247, 241, 230, 0.4);
+        }
+
+        /* ======================== REVIEWS ======================== */
+        .section-reviews {
+            padding: 220px 48px;
+            background: var(--charcoal);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .section-reviews::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(196, 162, 101, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .reviews-header .section-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+        .reviews-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            color: var(--cream);
+            margin-bottom: 16px;
+        }
+        .stars {
+            color: var(--gold);
+            font-size: 20px;
+            letter-spacing: 6px;
+            margin-bottom: 70px;
+        }
+        .reviews-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .review-card {
+            border: 1px solid rgba(196, 162, 101, 0.1);
+            padding: 48px 36px;
+            border-radius: 2px;
+            text-align: left;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .review-card::before {
+            content: '\201C';
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            color: rgba(196, 162, 101, 0.12);
+            position: absolute;
+            top: 8px; left: 20px;
+            line-height: 1;
+        }
+        .review-card:hover {
+            border-color: rgba(196, 162, 101, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .review-card .review-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-style: italic;
+            color: rgba(247, 241, 230, 0.8);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+        .review-card .review-author {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .review-card .review-badge {
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: rgba(247, 241, 230, 0.3);
+            margin-top: 4px;
+        }
+
+        /* ======================== CTA ======================== */
+        .section-cta {
+            position: relative;
+            padding: 240px 48px;
+            background: var(--olive-dark);
+            text-align: center;
+            overflow: hidden;
+        }
+        .section-cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(196, 162, 101, 0.06) 0%, transparent 70%);
+        }
+        .cta-content { position: relative; z-index: 2; }
+        .cta-content .section-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 36px;
+        }
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            color: var(--cream);
+            max-width: 700px;
+            margin: 0 auto 24px;
+            line-height: 1.1;
+        }
+        .cta-content .cta-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            font-weight: 300;
+            color: rgba(247, 241, 230, 0.5);
+            margin-bottom: 56px;
+        }
+        .cta-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 56px;
+            text-shadow: 0 0 40px rgba(196, 162, 101, 0.2);
+        }
+
+        .cta-guarantee {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gold);
+            opacity: 0.7;
+            max-width: 480px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+            border: 1px solid rgba(196, 162, 101, 0.2);
+            padding: 20px 32px;
+            border-radius: 2px;
+        }
+
+        /* ======================== FOOTER ======================== */
+        footer {
+            padding: 60px 48px;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(196, 162, 101, 0.08);
+        }
+        /* Olive branch SVG before footer */
+        .footer-branch {
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+            background: var(--charcoal);
+        }
+        .footer-branch svg {
+            width: 200px;
+            height: 30px;
+            opacity: 0.15;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--cream);
+        }
+        .footer-links { display: flex; gap: 32px; list-style: none; }
+        .footer-links a {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(247, 241, 230, 0.4);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-copy {
+            font-size: 9px;
+            color: rgba(247, 241, 230, 0.2);
+            letter-spacing: 1px;
+        }
+
+        /* ======================== ANIMATIONS ======================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible { opacity: 1; transform: scale(1); }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+        .reveal-delay-4 { transition-delay: 0.6s; }
+
+        /* Shimmer text */
+        .shimmer {
+            background: linear-gradient(
+                110deg,
+                var(--gold) 0%,
+                var(--gold-light) 25%,
+                #E8D5A8 50%,
+                var(--gold-light) 75%,
+                var(--gold) 100%
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 200% center; }
+            50% { background-position: -200% center; }
+        }
+
+        /* ======================== MOBILE MENU ======================== */
+        .mobile-menu {
+            display: none;
+        }
+
+        /* ======================== RESPONSIVE ======================== */
+        @media (max-width: 900px) {
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: var(--charcoal);
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                padding: 0 24px;
+            }
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+            .mobile-menu-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: 70px;
+                margin-bottom: 60px;
+            }
+            .mobile-menu-header .nav-logo {
+                position: static;
+                transform: none;
+                text-align: left;
+            }
+            .mobile-menu-close {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                color: var(--cream);
+            }
+            .mobile-menu-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+            .mobile-menu-links a {
+                font-family: 'Playfair Display', serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--cream);
+                text-decoration: none;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                transition: color 0.3s;
+            }
+            .mobile-menu-links a:hover {
+                color: var(--gold);
+            }
+            .cursor, .cursor-dot { display: none; }
+            body { cursor: auto; }
+            nav {
+                min-height: 70px;
+                padding: 0 24px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav.scrolled { padding: 0 24px; }
+            .nav-links { display: none; }
+            .hero-content { padding: 0 24px; }
+            .hero-bottom { left: 24px; right: 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
+            .hero-tagline { text-align: left; }
+            .scroll-indicator { display: none; }
+            .product-grid { grid-template-columns: 1fr; gap: 40px; }
+            .process-steps { grid-template-columns: 1fr; gap: 40px; }
+            .process-steps::before { display: none; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .section-gallery { grid-template-columns: 1fr; }
+            .gallery-item { aspect-ratio: 16/9; }
+            .counter-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .counter-item .counter-value { font-size: 56px; }
+            .section-philosophy, .section-origin, .section-product, .section-process, .section-reviews, .section-cta {
+                padding-left: 24px;
+                padding-right: 24px;
+                padding-top: 120px;
+                padding-bottom: 120px;
+            }
+            .float-1, .float-2 { display: none; }
+            .hero-title .line2 { padding-left: 5%; }
+            .hero-title .line3 { padding-right: 0; }
+            .product-image .gold-frame, .product-image .gold-frame-extra { display: none; }
+            .olive-divider svg { width: 180px; }
+            footer { padding: 40px 24px; }
+            .footer-content { flex-direction: column; gap: 24px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">EL POAIG</div>
+        <div class="loader-line"></div>
+        <div class="loader-sub">Millennial Olive Trees</div>
+    </div>
+
+    <!-- Grain overlay -->
+    <div class="grain"></div>
+
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- Vignette overlay -->
+    <div class="vignette"></div>
+
+    <!-- Cinematic wrapper -->
+    <div class="cinematic-wrapper">
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <button class="navbar-toggler" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="icons/hamburger-menu.svg" class="burger-menu" alt="Menu">
+        </button>
+        <ul class="nav-links">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#product">The Oliera</a></li>
+            <li><a href="#process">Process</a></li>
+        </ul>
+        <div class="nav-logo">
+            <div class="logo-text">EL POAIG</div>
+            <div class="logo-sub">Millennial Olive Trees</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank">Shop</a></li>
+            <li><a href="https://www.elpoaig.com" target="_blank">Store</a></li>
+        </ul>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="nav-logo">
+                <div class="logo-text">EL POAIG</div>
+                <div class="logo-sub">Millennial Olive Trees</div>
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6l12 12M6 18L18 6" stroke="var(--cream)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="mobile-menu-links">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#product">The Oliera</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank">Shop</a></li>
+            <li><a href="https://www.elpoaig.com" target="_blank">Store</a></li>
+        </ul>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <video class="hero-video" id="heroVideo" autoplay muted playsinline>
+            <source src="video-hero-clip.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">
+                <span class="line1"><span class="word">You</span> <span class="word">Don't</span> <span class="word">Buy</span></span>
+                <span class="line2"><span class="word">This</span> <em class="word"><em>Oil.</em></em></span>
+                <span class="line3"><span class="word">You're</span> <span class="word shimmer">Chosen.</span></span>
+            </h1>
+        </div>
+        <div class="hero-bottom" id="heroBottom">
+            <div class="hero-badge">
+                <div class="badge-label">World's First</div>
+                <div class="badge-value">Millennial EVOO</div>
+            </div>
+            <div class="hero-tagline">
+                <p>Organic extra virgin olive oil from trees aged 1,000 to 3,000 years. Farga variety. Hand-crafted porcelain oliera.</p>
+                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="discover-link">Acquire My Oliera — &euro;265 <span class="arrow"></span></a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- PRESS CAROUSEL -->
+    <section class="section-press">
+        <div class="press-header">
+            <div class="press-label">As Featured In</div>
+        </div>
+        <div class="press-track-wrapper">
+            <div class="press-track">
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/time-white.svg" alt="TIME">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"One of the best hundred products of the year."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/the-times-white.svg" alt="The Times">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The ultra premium Spanish olive oil has a name: El Poaig."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/the-independent-white.png" alt="The Independent">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"One of the best olive oils worldwide."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/wallpaper-white.svg" alt="Wallpaper*">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The exaltation of olive oil."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/el-mundo-white.svg" alt="El Mundo">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"Surprising smoothness and delicacy on the palate."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/food-wine-white.png" alt="Food & Wine">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Mil del Poaig is unique."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/luhho-white.png" alt="Luhho">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The non plus ultra in the world of olive oils."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/delicatessen-white.png" alt="Delicatessen">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"A balanced, palate-pleasing oil of supreme quality."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/chic-tendance-white.png" alt="Chic & Tendance">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"An exceptional olive oil."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/setrill-white.png" alt="Setrill">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Verd del Poaig is a jewel."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/via-gourmet-white.png" alt="Via Gourmet">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"Oil of supreme quality."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/sibaritisimo-white.png" alt="Sibaritisimo">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The brand of excellence for gourmets. A perfect blend of tradition and technology."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/delicate-white.png" alt="Delicate">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Verd del Poaig is pure delicacy."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/monkey-zen-white.png" alt="Monkey Zen">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Mil del Poaig is surprising and unmatched."</div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/time-white.svg" alt="TIME">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"One of the best hundred products of the year."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/the-times-white.svg" alt="The Times">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The ultra premium Spanish olive oil has a name: El Poaig."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/the-independent-white.png" alt="The Independent">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"One of the best olive oils worldwide."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/wallpaper-white.svg" alt="Wallpaper*">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The exaltation of olive oil."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/svg/el-mundo-white.svg" alt="El Mundo">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"Surprising smoothness and delicacy on the palate."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/food-wine-white.png" alt="Food & Wine">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Mil del Poaig is unique."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/luhho-white.png" alt="Luhho">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The non plus ultra in the world of olive oils."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/delicatessen-white.png" alt="Delicatessen">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"A balanced, palate-pleasing oil of supreme quality."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/chic-tendance-white.png" alt="Chic & Tendance">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"An exceptional olive oil."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/setrill-white.png" alt="Setrill">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Verd del Poaig is a jewel."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/via-gourmet-white.png" alt="Via Gourmet">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"Oil of supreme quality."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/sibaritisimo-white.png" alt="Sibaritisimo">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"The brand of excellence for gourmets. A perfect blend of tradition and technology."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/delicate-white.png" alt="Delicate">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Verd del Poaig is pure delicacy."</div>
+                </div>
+                <div class="press-card">
+                    <img class="press-logo" src="logos/monkey-zen-white.png" alt="Monkey Zen">
+                    <div class="press-line"></div>
+                    <div class="press-quote">"El Mil del Poaig is surprising and unmatched."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE DIVIDER -->
+    <div class="gold-divider">
+        <div class="divider-inner">
+            <span>Millennial Trees</span><div class="divider-dot"></div>
+            <span>Limited Edition</span><div class="divider-dot"></div>
+            <span>Farga Variety</span><div class="divider-dot"></div>
+            <span>Maestrat, Spain</span><div class="divider-dot"></div>
+            <span>500ml Porcelain</span><div class="divider-dot"></div>
+            <span>Certified Organic</span><div class="divider-dot"></div>
+            <span>Millennial Trees</span><div class="divider-dot"></div>
+            <span>Limited Edition</span><div class="divider-dot"></div>
+            <span>Farga Variety</span><div class="divider-dot"></div>
+            <span>Maestrat, Spain</span><div class="divider-dot"></div>
+            <span>500ml Porcelain</span><div class="divider-dot"></div>
+            <span>Certified Organic</span><div class="divider-dot"></div>
+        </div>
+    </div>
+
+    <!-- PHILOSOPHY -->
+    <section class="section-philosophy" id="philosophy">
+        <svg class="topo-bg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs>
+            <g fill="none" stroke="#6B7B3A" stroke-width="1.5" filter="url(#blur)">
+                <ellipse cx="400" cy="450" rx="300" ry="200" />
+                <ellipse cx="400" cy="450" rx="350" ry="240" />
+                <ellipse cx="400" cy="450" rx="420" ry="300" />
+                <ellipse cx="400" cy="450" rx="500" ry="360" />
+                <ellipse cx="1000" cy="300" rx="200" ry="150" />
+                <ellipse cx="1000" cy="300" rx="280" ry="210" />
+                <ellipse cx="1000" cy="300" rx="360" ry="280" />
+                <ellipse cx="700" cy="700" rx="250" ry="180" />
+                <ellipse cx="700" cy="700" rx="350" ry="260" />
+            </g>
+        </svg>
+
+        <div class="floating-img float-1">
+            <img src="EL_MIL1.webp" alt="El Mil del Poaig">
+        </div>
+        <div class="floating-img float-2">
+            <img src="IMG_0432.webp" alt="Millennial olive trees">
+        </div>
+
+        <div class="philosophy-text reveal">
+            <h2>This oil is not <em>made.</em> It is <em>inherited.</em></h2>
+        </div>
+
+        <div class="philosophy-sub reveal reveal-delay-1">
+            <div class="sub-title">What 3,000 Years Produce</div>
+            <p>Acidity below 0.2%. Polyphenols above 300 mg/kg. Zero additives, zero artificial filtering. The roots of these trees reach mineral strata no young tree will ever touch. The result is an unrepeatable organoleptic profile: intense, complex, with notes of green almond, tomato and fresh-cut grass.</p>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section-gallery">
+        <div class="gallery-item">
+            <div class="img-reveal"></div>
+            <img src="IMG_6036.webp" alt="Millennial olive trees of the Maestrat">
+            <div class="gallery-caption">
+                <span>The Landscape</span>
+                <p>Millennial olive groves of the Maestrat</p>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="img-reveal"></div>
+            <img src="2020-10-17_16.02.12_554bea07-41f5-4d7a-a864-122a44915d81.webp" alt="Traditional harvest">
+            <div class="gallery-caption">
+                <span>The Tradition</span>
+                <p>Artisanal harvest</p>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="img-reveal"></div>
+            <img src="E84A9270-1_copia_b584fe40-0f49-4b38-b1d6-42c21b720209.webp" alt="Extra virgin olive oil">
+            <div class="gallery-caption">
+                <span>The Product</span>
+                <p>Liquid gold, three millennia old</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORIGIN -->
+    <section class="section-origin" id="origin">
+        <svg class="topo-bg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter></defs>
+            <g fill="none" stroke="#6B7B3A" stroke-width="1.5" filter="url(#blur2)">
+                <ellipse cx="720" cy="450" rx="200" ry="150" />
+                <ellipse cx="720" cy="450" rx="300" ry="220" />
+                <ellipse cx="720" cy="450" rx="400" ry="300" />
+                <ellipse cx="720" cy="450" rx="520" ry="380" />
+                <ellipse cx="200" cy="200" rx="180" ry="120" />
+                <ellipse cx="200" cy="200" rx="280" ry="200" />
+                <ellipse cx="1200" cy="700" rx="200" ry="140" />
+                <ellipse cx="1200" cy="700" rx="320" ry="240" />
+            </g>
+        </svg>
+
+        <div class="floating-img float-1" style="top:20%; left:5%;">
+            <img src="IMG_0432.webp" alt="Maestrat landscape">
+        </div>
+        <div class="floating-img float-2" style="bottom:15%; right:5%;">
+            <img src="EL_MIL2.webp" alt="Porcelain oliera">
+        </div>
+
+        <div class="origin-text reveal">
+            <h2>The <em>Maestrat,</em> where time is measured in <em>harvests.</em></h2>
+        </div>
+
+        <div class="origin-sub reveal reveal-delay-1">
+            <div class="sub-title">Castellon. Mountainous Interior. 600m Altitude.</div>
+            <p>Limestone soils, continental climate with harsh winters and dry summers. The exact conditions that stress the olive tree just enough to concentrate all its flavour into each olive. No irrigation, no shortcuts. Only the Farga variety, native to this territory, survives and thrives on these slopes.</p>
+        </div>
+    </section>
+
+    <!-- VIDEO CINEMATIC -->
+    <section class="section-video-cinematic">
+        <video id="cinematicVideo" autoplay muted playsinline style="transition: opacity 1.5s ease;">
+            <source src="video-cinematic-30s.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <div class="video-quote reveal">
+                <h3>Each oliera holds the silent work of three millennia</h3>
+                <div class="quote-line"></div>
+                <div class="quote-attr">El Maestrat, Castellon</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTER -->
+    <section class="section-counter">
+        <div class="counter-grid">
+            <div class="counter-item reveal">
+                <div class="counter-value" data-target="3000">0</div>
+                <div class="counter-line"></div>
+                <div class="counter-label">Years of History</div>
+            </div>
+            <div class="counter-item reveal reveal-delay-1">
+                <div class="counter-value" data-target="615">0</div>
+                <div class="counter-line"></div>
+                <div class="counter-label">Olieras per Season</div>
+            </div>
+            <div class="counter-item reveal reveal-delay-2">
+                <div class="counter-value" data-target="500">0</div>
+                <div class="counter-line"></div>
+                <div class="counter-label">ml of Purity</div>
+            </div>
+            <div class="counter-item reveal reveal-delay-3">
+                <div class="counter-value" data-target="1">0</div>
+                <div class="counter-line"></div>
+                <div class="counter-label">One of a Kind</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT -->
+    <section class="section-product" id="product">
+        <div class="product-grid">
+            <div class="product-image reveal-left">
+                <div class="gold-frame"></div>
+                <div class="gold-frame-extra"></div>
+                <div class="img-frame">
+                    <img src="EL_MIL2.webp" alt="El Mil del Poaig">
+                </div>
+                <div class="edition-tag">Only 615 Units</div>
+            </div>
+            <div class="product-info">
+                <div class="product-label reveal-right">The Product</div>
+                <h3 class="reveal-right reveal-delay-1">El Mil del Poaig</h3>
+                <p class="product-desc reveal-right reveal-delay-2">No other oil like this exists. Farga variety from trees up to 3,000 years old, with organic certification and an extraction yield of 11-14% — where the industry targets 20%. Less oil per olive, but every drop preserves the full spectrum of its polyphenols and aromas.</p>
+
+                <div class="product-details reveal-right reveal-delay-2">
+                    <div class="detail-item">
+                        <div class="detail-label">Variety</div>
+                        <div class="detail-value">Farga</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Vessel</div>
+                        <div class="detail-value">Artisan Porcelain</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Acidity</div>
+                        <div class="detail-value">&lt; 0.2%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Production</div>
+                        <div class="detail-value">615 units/season</div>
+                    </div>
+                </div>
+
+                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal-right reveal-delay-3">Purchase — &euro;265</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section-process" id="process">
+        <div class="process-header">
+            <div class="olive-divider" style="margin-bottom: 40px;">
+                <svg viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="none" stroke="var(--olive-green)" stroke-width="0.8" stroke-linecap="round" opacity="0.5">
+                        <path d="M 0 20 Q 70 20 140 20 Q 210 20 280 20" />
+                        <path d="M 100 20 Q 110 10 120 8 Q 115 14 120 20" />
+                        <path d="M 110 20 Q 115 28 125 32 Q 118 26 120 20" />
+                        <path d="M 140 20 Q 148 11 158 8 Q 152 14 155 20" />
+                        <path d="M 148 20 Q 152 28 162 32 Q 155 26 155 20" />
+                        <path d="M 170 20 Q 178 12 186 10 Q 181 15 183 20" />
+                        <path d="M 175 20 Q 180 27 188 30 Q 182 25 183 20" />
+                        <circle cx="140" cy="20" r="2" fill="var(--olive-green)" opacity="0.4" />
+                    </g>
+                </svg>
+            </div>
+            <div class="section-label reveal">From Grove to Table</div>
+            <h2 class="reveal reveal-delay-1">The Art of Excellence</h2>
+        </div>
+
+        <div class="process-steps">
+            <div class="step reveal">
+                <div class="step-number">01</div>
+                <div class="step-title">The Pruning</div>
+                <p class="step-desc">We remove old branches so the tree channels all its energy into fewer fruits. The result: olives with the optimal flesh-to-pit ratio and higher antioxidant concentration.</p>
+            </div>
+            <div class="step reveal reveal-delay-1">
+                <div class="step-number">02</div>
+                <div class="step-title">The Harvest</div>
+                <p class="step-desc">Mechanical milking technique that protects buds and bark. Branch to mill in under 4 hours, so the olive neither oxidises nor loses a single aromatic nuance.</p>
+            </div>
+            <div class="step reveal reveal-delay-2">
+                <div class="step-number">03</div>
+                <div class="step-title">The Extraction</div>
+                <p class="step-desc">Beaten at ambient temperature with low injection rates. Where others extract 20%, we yield 11-14%. Less quantity, but every drop retains the full integrity of its polyphenols and aromas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section-reviews" id="reviews">
+        <div class="reviews-header reveal">
+            <div class="section-label">Reviews</div>
+            <h2>What They Say About Us</h2>
+            <div class="stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <p class="review-text">"Probably the finest olive oil in the world. I bought it as a gift and ended up keeping it. Now I own two."</p>
+                <div class="review-author">Uzi I.</div>
+                <div class="review-badge">Verified buyer · Collector</div>
+            </div>
+            <div class="review-card reveal reveal-delay-1">
+                <p class="review-text">"It conquers you at first sight with its aroma and deep green colour. But when you taste it with country bread, you realise it is an entirely different category."</p>
+                <div class="review-author">Carmen G.</div>
+                <div class="review-badge">Verified buyer · Amateur chef</div>
+            </div>
+            <div class="review-card reveal reveal-delay-2">
+                <p class="review-text">"I have tried oils at 50, 100 and 200 euros. This is the first that justifies every cent. The porcelain oliera is a work of art in itself."</p>
+                <div class="review-author">Jose A.</div>
+                <div class="review-badge">Verified buyer · Returning customer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-cta">
+        <div class="cta-content">
+            <div class="section-label reveal">2025/2026 Season — Few Units Remaining</div>
+            <h2 class="reveal reveal-delay-1">For those who know that the authentic is never mass-produced.</h2>
+            <p class="cta-sub reveal reveal-delay-2">Only 615 olieras per season · Free worldwide shipping · Full satisfaction guarantee</p>
+            <div class="cta-price reveal reveal-delay-2 shimmer">&euro;265</div>
+            <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal reveal-delay-3">Acquire My Oliera</a>
+        </div>
+    </section>
+
+    <!-- FOOTER BRANCH -->
+    <div class="footer-branch">
+        <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="var(--gold)" stroke-width="0.6" stroke-linecap="round">
+                <path d="M 0 15 Q 50 15 100 15 Q 150 15 200 15" />
+                <path d="M 70 15 Q 78 8 86 6 Q 81 11 83 15" />
+                <path d="M 76 15 Q 80 21 88 24 Q 82 20 83 15" />
+                <path d="M 110 15 Q 118 8 126 6 Q 121 11 123 15" />
+                <path d="M 116 15 Q 120 21 128 24 Q 122 20 123 15" />
+                <circle cx="100" cy="15" r="1.5" fill="var(--gold)" opacity="0.3" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">EL POAIG</div>
+            <ul class="footer-links">
+                <li><a href="https://www.elpoaig.com" target="_blank">Store</a></li>
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+            </ul>
+            <div class="footer-copy">&copy; 2026 El Poaig. All rights reserved.</div>
+        </div>
+    </footer>
+
+    </div><!-- /cinematic-wrapper -->
+
+    <!-- SCRIPTS -->
+    <script>
+        // ===== SCROLL PROGRESS BAR =====
+        const scrollProgressBar = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgressBar.style.width = scrollPercent + '%';
+        });
+
+        // ===== LOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                setTimeout(() => {
+                    document.getElementById('heroTitle').classList.add('animate');
+                    setTimeout(() => {
+                        document.getElementById('heroBottom').classList.add('animate');
+                    }, 600);
+                }, 400);
+            }, 2400);
+        });
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursorDot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.12;
+            cursorY += (mouseY - cursorY) * 0.12;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .btn-primary, .gallery-item, .review-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // ===== NAV SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 80);
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .floating-img, .gallery-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('gallery-item')) {
+                        entry.target.classList.add('revealed');
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => observer.observe(el));
+
+        // ===== COUNTER ANIMATION =====
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.dataset.target);
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function updateCounter(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 4);
+                        counter.textContent = Math.floor(eased * target).toLocaleString();
+                        if (progress < 1) requestAnimationFrame(updateCounter);
+                    }
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.counter-value').forEach(el => counterObserver.observe(el));
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // ===== PARALLAX =====
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.floating-img').forEach((img, i) => {
+                const speed = i % 2 === 0 ? 0.03 : -0.02;
+                const rect = img.closest('section').getBoundingClientRect();
+                const rotation = i % 2 === 0 ? -6 : 5;
+                img.style.transform = `rotate(${rotation}deg) translateY(${-rect.top * speed}px)`;
+            });
+
+            // Parallax video cinematic
+            const videoSection = document.querySelector('.section-video-cinematic');
+            if (videoSection) {
+                const rect = videoSection.getBoundingClientRect();
+                const video = videoSection.querySelector('video');
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    video.style.transform = `scale(1.05) translateY(${(progress - 0.5) * -40}px)`;
+                }
+            }
+        });
+
+        // ===== HERO VIDEO: play clip at 0.75x, freeze on last frame =====
+        const heroVideo = document.getElementById('heroVideo');
+        heroVideo.playbackRate = 0.75;
+        heroVideo.addEventListener('timeupdate', () => {
+            if (heroVideo.duration - heroVideo.currentTime < 0.15) {
+                heroVideo.pause();
+            }
+        });
+
+        // ===== CINEMATIC VIDEO: fade in/out loop =====
+        const cinVideo = document.getElementById('cinematicVideo');
+        if (cinVideo) {
+            cinVideo.addEventListener('timeupdate', () => {
+                const t = cinVideo.currentTime;
+                if (t < 1.5) {
+                    cinVideo.style.opacity = Math.min(t / 1.5, 1);
+                } else if (cinVideo.duration - t < 1.5) {
+                    cinVideo.style.opacity = Math.max((cinVideo.duration - t) / 1.5, 0);
+                } else {
+                    cinVideo.style.opacity = '1';
+                }
+            });
+            cinVideo.addEventListener('ended', () => {
+                cinVideo.currentTime = 0;
+                cinVideo.play();
+            });
+        }
+
+        // ===== HERO WORD STAGGER =====
+        document.querySelectorAll('.hero-title .word').forEach((word, i) => {
+            word.style.transitionDelay = `${0.4 + i * 0.12}s`;
+        });
+
+        // ===== MOBILE MENU TOGGLE =====
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        if (navbarToggler && mobileMenu) {
+            navbarToggler.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        if (mobileMenuClose && mobileMenu) {
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
