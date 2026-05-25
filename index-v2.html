@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>EL POAIG — Olive Oil from Millennial Trees</title>
+    <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+    <title>EL POAIG — Olive Oil from Millenary Farga Olive Trees</title>
     <link rel="icon" type="image/jpeg" href="icons/favicon.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
     <style>
@@ -1499,6 +1500,130 @@
             footer { padding: 40px 24px; }
             .footer-content { flex-direction: column; gap: 24px; text-align: center; }
         }
+
+        /* ======================== DACOSTA ======================== */
+        .section-dacosta {
+            padding: 160px 48px;
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid color-mix(in srgb, var(--gold) 8%, transparent);
+        }
+        .dacosta-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .dacosta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        .dacosta-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 4.5vw, 64px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--cream);
+            margin-bottom: 48px;
+            letter-spacing: -0.5px;
+        }
+        .dacosta-line {
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 30px;
+            opacity: 0.5;
+        }
+        .dacosta-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--cream);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .dacosta-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            font-weight: 400;
+        }
+        .dacosta-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, color-mix(in srgb, var(--gold) 3%, transparent) 0%, transparent 80%);
+            pointer-events: none;
+        }
+
+        /* ======================== PROCESS BOTTLING CALLOUT ======================== */
+        .process-bottling-callout {
+            grid-column: span 3;
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px;
+            border: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
+            background: color-mix(in srgb, var(--gold) 3%, transparent);
+            border-radius: 2px;
+        }
+        .process-bottling-callout .callout-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--olive-green);
+            margin-bottom: 16px;
+        }
+        .process-bottling-callout p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--olive-dark);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ======================== STORYTELLING CLAIM ======================== */
+        .storytelling-claim {
+            margin-top: 36px;
+            margin-bottom: 36px;
+            padding-top: 24px;
+            border-top: 1px solid color-mix(in srgb, var(--gold) 15%, transparent);
+        }
+        .storytelling-claim p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+        }
+
+        @media (max-width: 900px) {
+            .section-dacosta {
+                padding-left: 24px;
+                padding-right: 24px;
+                padding-top: 120px;
+                padding-bottom: 120px;
+            }
+            .process-bottling-callout {
+                grid-column: span 1;
+                padding: 24px;
+                margin-top: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1510,7 +1635,8 @@
     <div class="loader" id="loader">
         <div class="loader-logo">EL POAIG</div>
         <div class="loader-line"></div>
-        <div class="loader-sub">Millennial Olive Trees</div>
+        <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+        <div class="loader-sub">Millenary Farga Olive Trees</div>
     </div>
 
     <!-- Grain overlay -->
@@ -1538,7 +1664,8 @@
         </ul>
         <div class="nav-logo">
             <div class="logo-text">EL POAIG</div>
-            <div class="logo-sub">Millennial Olive Trees</div>
+            <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+            <div class="logo-sub">Millenary Farga Olive Trees</div>
         </div>
         <ul class="nav-links">
             <li><a href="#reviews">Reviews</a></li>
@@ -1552,7 +1679,8 @@
         <div class="mobile-menu-header">
             <div class="nav-logo">
                 <div class="logo-text">EL POAIG</div>
-                <div class="logo-sub">Millennial Olive Trees</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+                <div class="logo-sub">Millenary Farga Olive Trees</div>
             </div>
             <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1586,11 +1714,14 @@
         <div class="hero-bottom" id="heroBottom">
             <div class="hero-badge">
                 <div class="badge-label">World's First</div>
-                <div class="badge-value">Millennial EVOO</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+                <div class="badge-value">Millenary EVOO</div>
             </div>
             <div class="hero-tagline">
-                <p>Organic extra virgin olive oil from trees aged 1,000 to 3,000 years. Farga variety. Hand-crafted porcelain oliera.</p>
-                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="discover-link">Acquire My Oliera — &euro;265 <span class="arrow"></span></a>
+                <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
+                <p>Organic extra virgin olive oil from trees between 1,000 and 3,000 years old. Farga variety. Hand-crafted porcelain oliera.</p>
+                <!-- REQUERIMIENTO 25-06 PUNTO 1 -->
+                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="discover-link">PURCHASE <span class="arrow"></span></a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -1754,13 +1885,15 @@
     <!-- MARQUEE DIVIDER -->
     <div class="gold-divider">
         <div class="divider-inner">
-            <span>Millennial Trees</span><div class="divider-dot"></div>
+            <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+            <span>Millenary Farga Olive Trees</span><div class="divider-dot"></div>
             <span>Limited Edition</span><div class="divider-dot"></div>
             <span>Farga Variety</span><div class="divider-dot"></div>
             <span>Maestrat, Spain</span><div class="divider-dot"></div>
             <span>500ml Porcelain</span><div class="divider-dot"></div>
             <span>Certified Organic</span><div class="divider-dot"></div>
-            <span>Millennial Trees</span><div class="divider-dot"></div>
+            <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+            <span>Millenary Farga Olive Trees</span><div class="divider-dot"></div>
             <span>Limited Edition</span><div class="divider-dot"></div>
             <span>Farga Variety</span><div class="divider-dot"></div>
             <span>Maestrat, Spain</span><div class="divider-dot"></div>
@@ -1790,7 +1923,8 @@
             <img src="EL_MIL1.webp" alt="El Mil del Poaig">
         </div>
         <div class="floating-img float-2">
-            <img src="IMG_0432.webp" alt="Millennial olive trees">
+            <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+            <img src="IMG_0432.webp" alt="Millenary Farga Olive Trees">
         </div>
 
         <div class="philosophy-text reveal">
@@ -1798,8 +1932,10 @@
         </div>
 
         <div class="philosophy-sub reveal reveal-delay-1">
-            <div class="sub-title">What 3,000 Years Produce</div>
-            <p>Acidity below 0.2%. Polyphenols above 300 mg/kg. Zero additives, zero artificial filtering. The roots of these trees reach mineral strata no young tree will ever touch. The result is an unrepeatable organoleptic profile: intense, complex, with notes of green almond, tomato and fresh-cut grass.</p>
+            <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
+            <div class="sub-title">What between 1,000 and 3,000 years old produce</div>
+            <!-- REQUERIMIENTO 25-06 PUNTO 5 -->
+            <p>First ORGANIC EVOO from millenary olive trees. 350mg/kg polyphenols. Early harvest high polyphenol olive oil. Premium antioxidant EVOO. The roots of these trees reach mineral strata no young tree will ever touch. The result is an unrepeatable organoleptic profile: intense, complex, with notes of green almond, tomato and fresh-cut grass.</p>
         </div>
     </section>
 
@@ -1807,10 +1943,12 @@
     <section class="section-gallery">
         <div class="gallery-item">
             <div class="img-reveal"></div>
-            <img src="IMG_6036.webp" alt="Millennial olive trees of the Maestrat">
+            <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+            <img src="IMG_6036.webp" alt="Millenary Farga Olive Trees of the Maestrat">
             <div class="gallery-caption">
                 <span>The Landscape</span>
-                <p>Millennial olive groves of the Maestrat</p>
+                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
+                <p>Millenary Farga Olive Trees of the Maestrat</p>
             </div>
         </div>
         <div class="gallery-item">
@@ -1878,18 +2016,33 @@
         </div>
     </section>
 
+    <!-- REQUERIMIENTO 25-06 PUNTO 8 -->
+    <!-- ======================== QUIQUE DACOSTA DESTACADO ======================== -->
+    <section class="section-dacosta">
+        <div class="dacosta-container">
+            <span class="dacosta-label">Gastronomic Endorsement</span>
+            <h2 class="dacosta-quote">"El Mil del Poaig, on our table since the beginning."</h2>
+            <div class="dacosta-line"></div>
+            <h3 class="dacosta-name">Quique Dacosta</h3>
+            <p class="dacosta-subtitle">Restaurante Quique Dacosta · 3 Michelin Stars</p>
+        </div>
+        <div class="dacosta-bg"></div>
+    </section>
+
     <!-- COUNTER -->
     <section class="section-counter">
         <div class="counter-grid">
             <div class="counter-item reveal">
                 <div class="counter-value" data-target="3000">0</div>
                 <div class="counter-line"></div>
-                <div class="counter-label">Years of History</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
+                <div class="counter-label">Years of History (Aged 1,000 to 3,000)</div>
             </div>
             <div class="counter-item reveal reveal-delay-1">
                 <div class="counter-value" data-target="615">0</div>
                 <div class="counter-line"></div>
-                <div class="counter-label">Olieras per Season</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 4 -->
+                <div class="counter-label">olieras this season (production varies each harvest, October to October)</div>
             </div>
             <div class="counter-item reveal reveal-delay-2">
                 <div class="counter-value" data-target="500">0</div>
@@ -1913,12 +2066,14 @@
                 <div class="img-frame">
                     <img src="EL_MIL2.webp" alt="El Mil del Poaig">
                 </div>
-                <div class="edition-tag">Only 615 Units</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 4 -->
+                <div class="edition-tag">615 olieras this season (production varies each harvest, October to October)</div>
             </div>
             <div class="product-info">
                 <div class="product-label reveal-right">The Product</div>
                 <h3 class="reveal-right reveal-delay-1">El Mil del Poaig</h3>
-                <p class="product-desc reveal-right reveal-delay-2">No other oil like this exists. Farga variety from trees up to 3,000 years old, with organic certification and an extraction yield of 11-14% — where the industry targets 20%. Less oil per olive, but every drop preserves the full spectrum of its polyphenols and aromas.</p>
+                <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
+                <p class="product-desc reveal-right reveal-delay-2">No other oil like this exists. Farga variety from trees between 1,000 and 3,000 years old, with organic certification and an extraction yield of 11-14% — where the industry targets 20%. Less oil per olive, but every drop preserves the full spectrum of its polyphenols and aromas.</p>
 
                 <div class="product-details reveal-right reveal-delay-2">
                     <div class="detail-item">
@@ -1929,17 +2084,27 @@
                         <div class="detail-label">Vessel</div>
                         <div class="detail-value">Artisan Porcelain</div>
                     </div>
+                    <!-- REQUERIMIENTO 25-06 PUNTO 5 -->
                     <div class="detail-item">
-                        <div class="detail-label">Acidity</div>
-                        <div class="detail-value">&lt; 0.2%</div>
+                        <div class="detail-label">Polyphenols</div>
+                        <div class="detail-value">350 mg/kg</div>
                     </div>
+                    <!-- REQUERIMIENTO 25-06 PUNTO 4 -->
                     <div class="detail-item">
                         <div class="detail-label">Production</div>
-                        <div class="detail-value">615 units/season</div>
+                        <div class="detail-value" style="font-size: 11px; line-height: 1.4;">615 olieras this season (production varies each harvest, October to October)</div>
                     </div>
                 </div>
 
-                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal-right reveal-delay-3">Purchase — &euro;265</a>
+                <!-- REQUERIMIENTO 25-06 PUNTO 7 -->
+                <div class="storytelling-claim reveal-right reveal-delay-2">
+                    <p>
+                        "El Poaig was not born to make oil. It was born to protect a landscape, a territory, and one of the oldest symbols of the Maestrat: its millenary olive trees. We don't work with volume. We don't seek to be everywhere. We don't bottle anything that doesn't reach the highest quality. That's why El Poaig is not always available. That's why it's not for everyone."
+                    </p>
+                </div>
+
+                <!-- REQUERIMIENTO 25-06 PUNTO 1 -->
+                <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal-right reveal-delay-3">PURCHASE</a>
             </div>
         </div>
     </section>
@@ -1982,6 +2147,14 @@
                 <p class="step-desc">Beaten at ambient temperature with low injection rates. Where others extract 20%, we yield 11-14%. Less quantity, but every drop retains the full integrity of its polyphenols and aromas.</p>
             </div>
         </div>
+
+        <!-- REQUERIMIENTO 25-06 PUNTO 6 -->
+        <div class="process-bottling-callout reveal reveal-delay-3">
+            <div class="callout-label">Pure Preservation</div>
+            <p>
+                "This oil is never pre-bottled. It stays protected from oxidation in stainless steel tanks without oxygen until the moment you order. Bottled on demand. Never before."
+            </p>
+        </div>
     </section>
 
     <!-- REVIEWS -->
@@ -2016,9 +2189,11 @@
         <div class="cta-content">
             <div class="section-label reveal">2025/2026 Season — Few Units Remaining</div>
             <h2 class="reveal reveal-delay-1">For those who know that the authentic is never mass-produced.</h2>
-            <p class="cta-sub reveal reveal-delay-2">Only 615 olieras per season · Free worldwide shipping · Full satisfaction guarantee</p>
+            <!-- REQUERIMIENTO 25-06 PUNTO 4 -->
+            <p class="cta-sub reveal reveal-delay-2">615 olieras this season (production varies each harvest, October to October) · Free worldwide shipping · Full satisfaction guarantee</p>
             <div class="cta-price reveal reveal-delay-2 shimmer">&euro;265</div>
-            <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal reveal-delay-3">Acquire My Oliera</a>
+            <!-- REQUERIMIENTO 25-06 PUNTO 1 -->
+            <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank" class="btn-primary reveal reveal-delay-3">PURCHASE</a>
         </div>
     </section>
 
