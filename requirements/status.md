@@ -114,10 +114,12 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 - 4 ítems con inline SVGs: Certified organic agriculture · Millenary olive tree origin · Polyphenol analysis · Numbered porcelain oliera
 - Diseño: grid 4 columnas desktop, 2x2 mobile, fondo charcoal, iconos y texto en gold/cream
 
-### 7. Claim principal reforzado en hero
-- **Estado:** 🔄 Pendiente
-- Claim principal: *"The world's first organic EVOO from certified millenary Farga olive trees. More than 300 mg/kg of polyphenols. A rare oil that contributes to the protection of blood lipids from oxidative stress."*
-- Subheading: *"High-polyphenol organic EVOO from certified millenary olive trees."*
+### 7. Claim principal reforzado en hero ✅ Completado
+- Subheading añadido como `<span class="hero-subheading">` en hero-tagline (label gold, 9px uppercase):
+  *"High-polyphenol organic EVOO from certified millenary olive trees."*
+- Claim principal sustituyó al texto anterior en `<p>` del hero-tagline:
+  *"The world's first organic EVOO from certified millenary Farga olive trees. More than 300 mg/kg of polyphenols. A rare oil that contributes to the protection of blood lipids from oxidative stress."*
+- Bug residual corregido: `var(--olive-green)` en `.process-header .section-label::before/::after` (línea 1066) sustituido por `var(--gold)`
 
 ---
 
@@ -149,4 +151,4 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 | Icono rojo Adobe | ❌ No aplica |
 | Redirección por defecto EN | ❌ No aplica |
 | Bloque certificaciones | ✅ Completado |
-| Claim principal hero reforzado | 🔄 Pendiente |
+| Claim principal hero reforzado | ✅ Completado |
