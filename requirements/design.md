@@ -15,7 +15,6 @@ Premium landing page for **El Mil del Poaig**, world's first organic EVOO from m
 | `--cream` | `#F7F1E6` | Text on dark, light overlays |
 | `--warm-white` | `#FAF8F3` | Light section backgrounds |
 | `--olive-dark` | `#3A3A2A` | Intermediate backgrounds (CTA section) |
-| `--olive-green` | `#6B7B3A` | Italic accents in light sections |
 
 ---
 
@@ -207,7 +206,7 @@ Millennial Olive Trees
 ### Philosophy / Origin Sections
 - Light background (`--warm-white`)
 - Topographic SVG pattern at `opacity: 0.06`
-- Editorial headline with italic olive-green accents
+- Editorial headline with italic gold accents
 - Floating images with parallax effect (hidden on mobile)
 
 ### Gallery

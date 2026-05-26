@@ -1,6 +1,6 @@
 # EL POAIG — Estado del Proyecto
 
-> Actualizado: 25 mayo 2026
+> Actualizado: 26 mayo 2026
 
 ---
 
@@ -73,10 +73,58 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 
 ---
 
+## 🆕 Actualización 26-05 — Specs del 26 de mayo (versión EN)
+
+Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
+
+### 1. Sustituciones exactas de copy ✅ Completado
+- `What between 1,000 and 3,000 years old produce` → `What trees between 1,000 and 3,000 years old produce`
+- `350mg/kg` → `350 mg/kg`
+- `olieras this season` → `Porcelain oliera this season` (todas las instancias)
+- `Mechanical milking technique` → `Gentle mechanical harvesting`
+- `Beaten at ambient temperature` → `Milled at low temperature`
+- `low injection rates` → `low extraction yield`
+- `Continental climate` → `Mediterranean climate`
+- `Where others extract 20%, we yield 11-14%` → `While the industry may pursue yields around 20%, we accept only 11-14% to preserve integrity.`
+
+### 2. Botón de compra ✅ Completado
+- Cambiado texto de 3 botones `"PURCHASE"` → `"Acquire your numbered oliera"` (Hero, Producto, CTA final)
+- Eliminado `--olive-green` de `:root` y reemplazadas todas las instancias por `var(--gold)`
+
+### 3. Eliminar color verde oliva ✅ Completado
+- Variable `--olive-green: #6B7B3A` eliminada del `:root`
+- 11 instancias reemplazadas por `var(--gold)`:
+  - `.press-card:hover .press-line`
+  - `.philosophy-text h2 em`
+  - `.origin-text h2 em`
+  - `.process-header .section-label` y `::before/::after`
+  - `.process-bottling-callout .callout-label`
+  - SVG topo backgrounds (philosophy y origin)
+  - SVG olive-divider en process
+- **Nota:** `--olive-dark` (#3A3A2A) se mantiene — es color diferente para fondos intermedios.
+
+### 4. Icono rojo Adobe
+- **Estado:** ❌ No aplica — No encontrado en el proyecto.
+
+### 5. Redirección por defecto
+- **Estado:** ❌ No aplica — No encontrado en el proyecto.
+
+### 6. Bloque de certificaciones ✅ Completado
+- Nueva sección `.section-certifications` insertada entre section-cta y footer-branch
+- 4 ítems con inline SVGs: Certified organic agriculture · Millenary olive tree origin · Polyphenol analysis · Numbered porcelain oliera
+- Diseño: grid 4 columnas desktop, 2x2 mobile, fondo charcoal, iconos y texto en gold/cream
+
+### 7. Claim principal reforzado en hero
+- **Estado:** 🔄 Pendiente
+- Claim principal: *"The world's first organic EVOO from certified millenary Farga olive trees. More than 300 mg/kg of polyphenols. A rare oil that contributes to the protection of blood lipids from oxidative stress."*
+- Subheading: *"High-polyphenol organic EVOO from certified millenary olive trees."*
+
+---
+
 ## 🔄 En progreso / Pendiente
 
 ### Replicar cambios de copy en ES y JP
-- Los 8 cambios de copy de la Actualización 25-05 se aplicaron únicamente en `index-v2.html` (versión EN).
+- Los cambios de las Actualizaciones 25-05 y 26-05 se aplicaron únicamente en `index-v2.html` (versión EN).
 - **Acción:** Traducir y aplicar los mismos cambios en `index-es.html` y `jp/index.html`.
 
 ---
@@ -95,3 +143,10 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 | Publicación en dominio | ✅ Verificado |
 | Copy actualizado EN (8 puntos 25-05) | ✅ Completado |
 | Copy actualizado ES y JP | 🔄 Pendiente |
+| Sustituciones exactas 26-05 (8 cambios) | ✅ Completado |
+| Botón "Acquire your numbered oliera" | ✅ Completado |
+| Eliminar verde oliva (olive-green) | ✅ Completado |
+| Icono rojo Adobe | ❌ No aplica |
+| Redirección por defecto EN | ❌ No aplica |
+| Bloque certificaciones | ✅ Completado |
+| Claim principal hero reforzado | 🔄 Pendiente |
