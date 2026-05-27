@@ -2052,20 +2052,46 @@
                 display: none;
             }
 
+            .hero {
+                align-items: flex-start;
+                min-height: 100svh;
+            }
+
             .hero-content {
                 padding: 0 24px;
+                padding-top: 100px;
             }
 
             .hero-bottom {
                 left: 24px;
                 right: 24px;
+                bottom: 24px;
                 flex-direction: column;
-                gap: 20px;
+                gap: 16px;
                 align-items: flex-start;
+            }
+
+            .hero-badge {
+                padding: 14px 20px;
+            }
+
+            .hero-badge .badge-value {
+                font-size: 22px;
             }
 
             .hero-tagline {
                 text-align: left;
+            }
+
+            .hero-tagline .hero-subheading {
+                font-size: 8px;
+                letter-spacing: 3px;
+                margin-bottom: 8px;
+            }
+
+            .hero-tagline p {
+                font-size: 9px;
+                line-height: 1.8;
             }
 
             .scroll-indicator {
