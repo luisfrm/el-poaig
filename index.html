@@ -2053,19 +2053,23 @@
             }
 
             .hero {
-                align-items: flex-start;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-end;
+                padding: 90px 24px 24px;
                 min-height: 100svh;
             }
 
             .hero-content {
-                padding: 0 24px;
-                padding-top: 100px;
+                padding: 0;
+                margin-bottom: 30px;
             }
 
             .hero-bottom {
-                left: 24px;
-                right: 24px;
-                bottom: 24px;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
                 flex-direction: column;
                 gap: 16px;
                 align-items: flex-start;
