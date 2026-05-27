@@ -1,6 +1,6 @@
 # EL POAIG — Estado del Proyecto
 
-> Actualizado: 26 mayo 2026
+> Actualizado: 27 mayo 2026
 
 ---
 
@@ -123,6 +123,44 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 
 ---
 
+## 🆕 Actualización 27-05 — Diseño y layout (versión EN)
+
+Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
+
+### 1. Certifications section rediseñada ✅ Completado
+- Header añadido: label "Certifications & Distinctions" + h2 "Recognised by the highest standards"
+- Animación scroll reveal en header y cada cert-item (stagger con delay-1 a delay-4)
+- Iconos aumentados de 32px a 48px para legibilidad de detalles SVG
+- Opacidad subida: img 0.8→0.85, span 0.7→0.8
+- Hover states: translateY(-4px) + opacity full en img y span
+- Separadores verticales gold entre items (desktop) y horizontales en grid 2×2 (mobile)
+- `max-width: 140px` en span para evitar wraps desiguales
+
+### 2. Hero mobile: layout corregido ✅ Completado
+- Colisión entre h1 title y hero-bottom content en móvil resuelta
+- Título posicionado arriba del bottom content con `margin-bottom: 30px`
+- `.hero` cambia a `flex-direction: column` + `justify-content: flex-end` en mobile
+- `.hero-bottom` cambia a `position: relative` (sale de absolute, entra en flujo flex)
+- Padding hero: `90px 24px 24px` (espacio para navbar + respiración)
+- Badge compactado (`padding: 14px 20px`, `badge-value font-size: 22px`)
+- Subheading y párrafo compactados (`font-size 8px/9px`, `letter-spacing 3px`)
+- `min-height: 100svh` (sin el piso de 700px)
+
+### 3. Eliminado --olive-dark por completo ✅ Completado
+- Variable `--olive-dark: #3A3A2A` eliminada de `:root`
+- 9 instancias reemplazadas con variables existentes:
+  - Textos secundarios sobre warm-white → `var(--charcoal)` (6 instancias)
+  - Hover press-card → `var(--cream)` (1 instancia)
+  - Product img-frame background → `var(--charcoal)` (1 instancia)
+  - Section CTA background → `var(--charcoal)` (1 instancia)
+- `.section-cta` ahora tiene `border-top` y `border-bottom` gold sutil (mismo patrón que `section-dacosta`)
+
+### 4. Precio removido de la CTA section ✅ Completado
+- Elemento `.cta-price` con `€265` eliminado de la sección CTA
+- El CTA ahora solo contiene: label, h2, p descriptivo y botón "Acquire your numbered oliera"
+
+---
+
 ## 🔄 En progreso / Pendiente
 
 ### Replicar cambios de copy en ES y JP
@@ -152,3 +190,7 @@ Aplicados en `index-v2.html`. Pendiente replicar en versiones ES y JP.
 | Redirección por defecto EN | ❌ No aplica |
 | Bloque certificaciones | ✅ Completado |
 | Claim principal hero reforzado | ✅ Completado |
+| Certifications rediseñada | ✅ Completado |
+| Hero mobile layout corregido | ✅ Completado |
+| --olive-dark eliminado | ✅ Completado |
+| Precio removido de CTA | ✅ Completado |
