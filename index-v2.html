@@ -790,7 +790,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 220px 48px;
+            padding: 160px 48px 280px 48px;
             background: var(--warm-white);
             overflow: hidden;
         }
@@ -805,16 +805,25 @@
             pointer-events: none;
         }
 
-        .philosophy-text {
+        .philosophy-content-wrapper {
             position: relative;
             z-index: 2;
-            text-align: center;
-            max-width: 1100px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .philosophy-text {
+            text-align: left;
+            margin-bottom: 60px;
+
+            @media (max-width: 900px) {
+                padding-left: 24px;
+            }
         }
 
         .philosophy-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(44px, 6.5vw, 96px);
+            font-size: clamp(57px, 6.5vw, 96px);
             font-weight: 900;
             color: var(--charcoal);
             line-height: 1.08;
@@ -823,6 +832,81 @@
         .philosophy-text h2 em {
             font-style: italic;
             color: var(--gold);
+        }
+
+        .philosophy-images-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .philosophy-images-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .philosophy-images-grid img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            aspect-ratio: 2/3;
+            display: block;
+
+            @media (max-width: 900px) {
+                height: auto;
+            }
+        }
+
+        .philosophy-charcoal-box {
+            position: absolute;
+            top: 85%;
+            right: 0;
+            width: 75%;
+            background: var(--charcoal);
+            padding: 35px 20px;
+            z-index: 3;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .philosophy-charcoal-box .sub-title {
+            font-size: 17px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .philosophy-charcoal-box .divider {
+            background-color: var(--gold);
+            width: 155px;
+            height: 2px;
+        }
+
+        .philosophy-charcoal-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+            max-width: none;
+        }
+
+        .floating-img {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-img.visible {
+            opacity: 1;
         }
 
         .floating-img {
@@ -869,32 +953,23 @@
             transform: rotate(5deg) translateY(0);
         }
 
-        .philosophy-sub {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 80px;
+        .float-1.visible {
+            transform: rotate(-6deg) translateY(0);
         }
 
-        .philosophy-sub .sub-title {
-            font-size: 9px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--charcoal);
-            font-weight: 500;
-            margin-bottom: 20px;
+        .float-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 5%;
+            transform: rotate(5deg) translateY(40px);
         }
 
-        .philosophy-sub p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            line-height: 1.9;
-            color: var(--charcoal);
-            max-width: 560px;
-            margin: 0 auto;
+        .float-2.visible {
+            transform: rotate(5deg) translateY(0);
         }
+
+
 
         /* ======================== GALLERY ======================== */
         .section-gallery {
@@ -2317,6 +2392,23 @@
                 padding: 24px;
                 margin-top: 40px;
             }
+
+            .philosophy-images-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .philosophy-charcoal-box {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                padding: 40px 24px;
+            }
+
+
+
+            .section-philosophy {
+                padding: 120px 0 60px 0;
+            }
         }
     </style>
 </head>
@@ -2640,26 +2732,28 @@
                 </g>
             </svg>
 
-            <div class="floating-img float-1">
-                <img src="EL_MIL1.webp" alt="El Mil del Poaig">
-            </div>
-            <div class="floating-img float-2">
-                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
-                <img src="IMG_0432.webp" alt="Millenary Farga Olive Trees">
-            </div>
+            <div class="philosophy-content-wrapper">
+                <div class="philosophy-text reveal">
+                    <h2>This oil is not <em>made.</em><br>It is <em>inherited.</em></h2>
+                </div>
 
-            <div class="philosophy-text reveal">
-                <h2>This oil is not <em>made.</em> It is <em>inherited.</em></h2>
-            </div>
+                <div class="philosophy-images-container">
+                    <div class="philosophy-images-grid reveal">
+                        <img src="assets/philosophy/image1.png" alt="Philosophy 1">
+                        <img src="assets/philosophy/image2.png" alt="Philosophy 2">
+                        <img src="assets/philosophy/image3.png" alt="Philosophy 3">
+                        <img src="assets/philosophy/image4.png" alt="Philosophy 4">
+                    </div>
 
-            <div class="philosophy-sub reveal reveal-delay-1">
-                <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
-                <div class="sub-title">What trees between 1,000 and 3,000 years old produce</div>
-                <!-- REQUERIMIENTO 25-06 PUNTO 5 -->
-                <p>First ORGANIC EVOO from millenary olive trees. 350 mg/kg polyphenols. Early harvest high polyphenol
-                    olive oil. Premium antioxidant EVOO. The roots of these trees reach mineral strata no young tree
-                    will ever touch. The result is an unrepeatable organoleptic profile: intense, complex, with notes of
-                    green almond, tomato and fresh-cut grass.</p>
+                    <div class="philosophy-charcoal-box reveal reveal-delay-1">
+                        <div class="sub-title">What trees between 1,000 and 3,000 years old produce</div>
+                        <div class="divider"></div>
+                        <p>First ORGANIC EVOO from millenary olive trees. 350 mg/kg polyphenols. Early harvest high
+                            polyphenol olive oil. Premium antioxidant EVOO. The roots of these trees reach mineral
+                            strata no young tree will ever touch. The result is an unrepeatable organoleptic profile:
+                            intense, complex, with notes of green almond, tomato and fresh-cut grass.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
