@@ -815,10 +815,6 @@
         .philosophy-text {
             text-align: left;
             margin-bottom: 60px;
-
-            @media (max-width: 900px) {
-                padding-left: 24px;
-            }
         }
 
         .philosophy-text h2 {
@@ -851,10 +847,6 @@
             object-fit: cover;
             aspect-ratio: 2/3;
             display: block;
-
-            @media (max-width: 900px) {
-                height: auto;
-            }
         }
 
         .philosophy-charcoal-box {
@@ -893,6 +885,24 @@
             line-height: 1.8;
             color: color-mix(in srgb, var(--cream) 90%, transparent);
             max-width: none;
+        }
+
+        @media (max-width: 900px) {
+            .philosophy-text {
+                padding-left: 24px;
+            }
+
+            .philosophy-images-grid img {
+                height: auto;
+            }
+
+            .philosophy-charcoal-box {
+
+                p,
+                .sub-title {
+                    font-size: 18px;
+                }
+            }
         }
 
         .floating-img {
