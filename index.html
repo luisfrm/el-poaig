@@ -704,7 +704,7 @@
         }
 
         .press-card:hover .press-quote {
-            color: var(--cream);
+            color: var(--charcoal);
             opacity: 0.8;
         }
 
@@ -790,7 +790,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 220px 48px;
+            padding: 160px 48px 280px 48px;
             background: var(--warm-white);
             overflow: hidden;
         }
@@ -805,16 +805,21 @@
             pointer-events: none;
         }
 
-        .philosophy-text {
+        .philosophy-content-wrapper {
             position: relative;
             z-index: 2;
-            text-align: center;
-            max-width: 1100px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .philosophy-text {
+            text-align: left;
+            margin-bottom: 60px;
         }
 
         .philosophy-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(44px, 6.5vw, 96px);
+            font-size: clamp(57px, 6.5vw, 96px);
             font-weight: 900;
             color: var(--charcoal);
             line-height: 1.08;
@@ -823,6 +828,98 @@
         .philosophy-text h2 em {
             font-style: italic;
             color: var(--gold);
+        }
+
+        .philosophy-images-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .philosophy-images-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .philosophy-images-grid img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            aspect-ratio: 2/3;
+            display: block;
+        }
+
+        .philosophy-charcoal-box {
+            position: absolute;
+            top: 85%;
+            right: 0;
+            width: 75%;
+            background: var(--charcoal);
+            padding: 35px 20px;
+            z-index: 3;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .philosophy-charcoal-box .sub-title {
+            font-size: 17px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .philosophy-charcoal-box .divider {
+            background-color: var(--gold);
+            width: 155px;
+            height: 2px;
+        }
+
+        .philosophy-charcoal-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+            max-width: none;
+        }
+
+        @media (max-width: 900px) {
+            .philosophy-text {
+                padding-left: 24px;
+            }
+
+            .philosophy-images-grid img {
+                height: auto;
+            }
+
+            .philosophy-charcoal-box {
+
+                p {
+                    font-size: 17px;
+                }
+
+                .sub-title {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .floating-img {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-img.visible {
+            opacity: 1;
         }
 
         .floating-img {
@@ -869,32 +966,23 @@
             transform: rotate(5deg) translateY(0);
         }
 
-        .philosophy-sub {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 80px;
+        .float-1.visible {
+            transform: rotate(-6deg) translateY(0);
         }
 
-        .philosophy-sub .sub-title {
-            font-size: 9px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--charcoal);
-            font-weight: 500;
-            margin-bottom: 20px;
+        .float-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 5%;
+            transform: rotate(5deg) translateY(40px);
         }
 
-        .philosophy-sub p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            line-height: 1.9;
-            color: var(--charcoal);
-            max-width: 560px;
-            margin: 0 auto;
+        .float-2.visible {
+            transform: rotate(5deg) translateY(0);
         }
+
+
 
         /* ======================== GALLERY ======================== */
         .section-gallery {
@@ -973,60 +1061,119 @@
         /* ======================== ORIGIN ======================== */
         .section-origin {
             position: relative;
+            background: var(--charcoal);
+            overflow: hidden;
             min-height: 100vh;
+        }
+
+        .origin-grid {
+            display: grid;
+            grid-template-columns: 60% 40%;
+            min-height: 100vh;
+            align-items: stretch;
+        }
+
+        .origin-content {
+            padding: 120px 8% 120px 10%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 220px 48px;
-            background: var(--warm-white);
-            overflow: hidden;
-        }
-
-        .origin-text {
+            background: var(--charcoal);
             position: relative;
             z-index: 2;
-            text-align: center;
-            max-width: 1100px;
         }
 
-        .origin-text h2 {
+        .origin-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(44px, 6.5vw, 96px);
+            font-size: clamp(57px, 6.5vw, 96px);
             font-weight: 900;
-            color: var(--charcoal);
-            line-height: 1.08;
+            color: var(--cream);
+            line-height: 1.25;
+            margin-bottom: 0;
         }
 
-        .origin-text h2 em {
+        .origin-content h2 em {
             font-style: italic;
             color: var(--gold);
         }
 
-        .origin-sub {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 80px;
+        .origin-content .divider {
+            background-color: var(--gold);
+            width: 155px;
+            height: 2px;
+            margin: 40px 0;
         }
 
-        .origin-sub .sub-title {
-            font-size: 9px;
+        .origin-content .sub-title {
+            font-size: 17px;
+            font-weight: 300;
             letter-spacing: 5px;
             text-transform: uppercase;
-            color: var(--charcoal);
-            font-weight: 500;
-            margin-bottom: 20px;
+            color: var(--gold);
+            margin-bottom: 24px;
         }
 
-        .origin-sub p {
+        .origin-content p {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 300;
-            line-height: 1.9;
-            color: var(--charcoal);
-            max-width: 560px;
-            margin: 0 auto;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+        }
+
+        .origin-gallery {
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .origin-carousel {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .origin-carousel .carousel-track {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            animation: slide-origin 20s infinite ease-in-out;
+        }
+
+        .origin-carousel .carousel-track img {
+            width: 25%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @keyframes slide-origin {
+
+            0%,
+            20% {
+                transform: translateX(0%);
+            }
+
+            25%,
+            45% {
+                transform: translateX(-25%);
+            }
+
+            50%,
+            70% {
+                transform: translateX(-50%);
+            }
+
+            75%,
+            95% {
+                transform: translateX(-75%);
+            }
+
+            100% {
+                transform: translateX(0%);
+            }
         }
 
         /* ======================== VIDEO CINEMATIC ======================== */
@@ -2171,6 +2318,28 @@
                 width: 180px;
             }
 
+            .section-origin {
+                padding: 0 !important;
+            }
+
+            .origin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .origin-gallery {
+                order: 1;
+                height: 50vh;
+            }
+
+            .origin-content {
+                order: 2;
+                padding: 60px 24px 80px 24px;
+            }
+
+            .origin-content h2 {
+                font-size: clamp(38px, 8vw, 56px);
+            }
+
             footer {
                 padding: 40px 24px;
             }
@@ -2316,6 +2485,19 @@
                 grid-column: span 1;
                 padding: 24px;
                 margin-top: 40px;
+            }
+
+            .philosophy-charcoal-box {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                padding: 40px 24px;
+            }
+
+
+
+            .section-philosophy {
+                padding: 120px 0 60px 0;
             }
         }
     </style>
@@ -2640,26 +2822,28 @@
                 </g>
             </svg>
 
-            <div class="floating-img float-1">
-                <img src="EL_MIL1.webp" alt="El Mil del Poaig">
-            </div>
-            <div class="floating-img float-2">
-                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
-                <img src="IMG_0432.webp" alt="Millenary Farga Olive Trees">
-            </div>
+            <div class="philosophy-content-wrapper">
+                <div class="philosophy-text reveal">
+                    <h2>This oil is not <em>made.</em><br>It is <em>inherited.</em></h2>
+                </div>
 
-            <div class="philosophy-text reveal">
-                <h2>This oil is not <em>made.</em> It is <em>inherited.</em></h2>
-            </div>
+                <div class="philosophy-images-container">
+                    <div class="philosophy-images-grid reveal">
+                        <img src="assets/philosophy/philosophy1.webp" alt="Philosophy 1">
+                        <img src="assets/philosophy/philosophy2.webp" alt="Philosophy 2">
+                        <img src="assets/philosophy/philosophy3.webp" alt="Philosophy 3">
+                        <img src="assets/philosophy/philosophy4.webp" alt="Philosophy 4">
+                    </div>
 
-            <div class="philosophy-sub reveal reveal-delay-1">
-                <!-- REQUERIMIENTO 25-06 PUNTO 2 -->
-                <div class="sub-title">What trees between 1,000 and 3,000 years old produce</div>
-                <!-- REQUERIMIENTO 25-06 PUNTO 5 -->
-                <p>First ORGANIC EVOO from millenary olive trees. 350 mg/kg polyphenols. Early harvest high polyphenol
-                    olive oil. Premium antioxidant EVOO. The roots of these trees reach mineral strata no young tree
-                    will ever touch. The result is an unrepeatable organoleptic profile: intense, complex, with notes of
-                    green almond, tomato and fresh-cut grass.</p>
+                    <div class="philosophy-charcoal-box reveal reveal-delay-1">
+                        <div class="sub-title">What trees between 1,000 and 3,000 years old produce</div>
+                        <div class="divider"></div>
+                        <p>First ORGANIC EVOO from millenary olive trees. 350 mg/kg polyphenols. Early harvest high
+                            polyphenol olive oil. Premium antioxidant EVOO. The roots of these trees reach mineral
+                            strata no young tree will ever touch. The result is an unrepeatable organoleptic profile:
+                            intense, complex, with notes of green almond, tomato and fresh-cut grass.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2693,43 +2877,58 @@
             </div>
         </section>
 
+        <!-- MARQUEE DIVIDER -->
+        <div class="gold-divider">
+            <div class="divider-inner">
+                <span>Millenary Farga Olive Trees</span>
+                <div class="divider-dot"></div>
+                <span>Limited Edition</span>
+                <div class="divider-dot"></div>
+                <span>Farga Variety</span>
+                <div class="divider-dot"></div>
+                <span>Maestrat, Spain</span>
+                <div class="divider-dot"></div>
+                <span>500ml Porcelain</span>
+                <div class="divider-dot"></div>
+                <span>Certified Organic</span>
+                <div class="divider-dot"></div>
+                <span>Millenary Farga Olive Trees</span>
+                <div class="divider-dot"></div>
+                <span>Limited Edition</span>
+                <div class="divider-dot"></div>
+                <span>Farga Variety</span>
+                <div class="divider-dot"></div>
+                <span>Maestrat, Spain</span>
+                <div class="divider-dot"></div>
+                <span>500ml Porcelain</span>
+                <div class="divider-dot"></div>
+                <span>Certified Organic</span>
+                <div class="divider-dot"></div>
+            </div>
+        </div>
+
         <!-- ORIGIN -->
         <section class="section-origin" id="origin">
-            <svg class="topo-bg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="blur2">
-                        <feGaussianBlur stdDeviation="2" />
-                    </filter>
-                </defs>
-                <g fill="none" stroke="#C4A265" stroke-width="1.5" filter="url(#blur2)">
-                    <ellipse cx="720" cy="450" rx="200" ry="150" />
-                    <ellipse cx="720" cy="450" rx="300" ry="220" />
-                    <ellipse cx="720" cy="450" rx="400" ry="300" />
-                    <ellipse cx="720" cy="450" rx="520" ry="380" />
-                    <ellipse cx="200" cy="200" rx="180" ry="120" />
-                    <ellipse cx="200" cy="200" rx="280" ry="200" />
-                    <ellipse cx="1200" cy="700" rx="200" ry="140" />
-                    <ellipse cx="1200" cy="700" rx="320" ry="240" />
-                </g>
-            </svg>
-
-            <div class="floating-img float-1" style="top:20%; left:5%;">
-                <img src="IMG_0432.webp" alt="Maestrat landscape">
-            </div>
-            <div class="floating-img float-2" style="bottom:15%; right:5%;">
-                <img src="EL_MIL2.webp" alt="Porcelain oliera">
-            </div>
-
-            <div class="origin-text reveal">
-                <h2>The <em>Maestrat,</em> where time is measured in <em>harvests.</em></h2>
-            </div>
-
-            <div class="origin-sub reveal reveal-delay-1">
-                <div class="sub-title">Castellon. Mountainous Interior. 600m Altitude.</div>
-                <p>Limestone soils, Mediterranean climate with harsh winters and dry summers. The exact conditions that
-                    stress the olive tree just enough to concentrate all its flavour into each olive. No irrigation, no
-                    shortcuts. Only the Farga variety, native to this territory, survives and thrives on these slopes.
-                </p>
+            <div class="origin-grid">
+                <div class="origin-content">
+                    <h2 class="reveal">The <em>Maestrat,</em><br>where time<br>is measured<br>in <em>harvests.</em></h2>
+                    <div class="divider reveal reveal-delay-1"></div>
+                    <div class="sub-title reveal reveal-delay-1">Castellon. Mountainous Interior. 600m Altitude.</div>
+                    <p class="reveal reveal-delay-2">Limestone soils, Mediterranean climate with harsh winters and dry
+                        summers. The exact conditions that stress the olive tree just enough to concentrate all its
+                        flavour into each olive. No irrigation, no shortcuts. Only the Farga variety, native to this
+                        territory, survives and thrives on these slopes.</p>
+                </div>
+                <div class="origin-gallery reveal-right reveal-delay-1">
+                    <div class="origin-carousel">
+                        <div class="carousel-track">
+                            <img src="assets/origin/origin1.webp" alt="origin Image 1">
+                            <img src="assets/origin/origin2.webp" alt="origin Image 2">
+                            <img src="assets/origin/origin4.webp" alt="origin Image 4">
+                            <img src="assets/origin/origin3.webp" alt="origin Image 3">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
