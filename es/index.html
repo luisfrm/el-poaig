@@ -23,11 +23,9 @@
         :root {
             --gold: #C4A265;
             --gold-light: #D4B878;
-            --olive-dark: #3A3A2A;
+            --charcoal: #1A1A14;
             --cream: #F7F1E6;
             --stone: #E8E0D0;
-            --charcoal: #1A1A14;
-            --olive-green: #6B7B3A;
             --warm-white: #FAF8F3;
         }
 
@@ -431,7 +429,7 @@
         }
 
         .hero-tagline {
-            max-width: 420px;
+            max-width: 640px;
             text-align: right;
         }
 
@@ -441,6 +439,15 @@
             text-transform: uppercase;
             line-height: 2;
             color: rgba(247, 241, 230, 0.7);
+        }
+
+        .hero-tagline .hero-subheading {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
         }
 
         .hero-tagline .discover-link {
@@ -683,7 +690,7 @@
         }
 
         .press-card:hover .press-line {
-            background: var(--olive-green);
+            background: var(--gold);
             opacity: 0.6;
         }
 
@@ -699,7 +706,7 @@
         }
 
         .press-card:hover .press-quote {
-            color: var(--olive-dark);
+            color: var(--charcoal);
             opacity: 0.8;
         }
 
@@ -785,7 +792,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 220px 48px;
+            padding: 160px 48px 280px 48px;
             background: var(--warm-white);
             overflow: hidden;
         }
@@ -800,16 +807,21 @@
             pointer-events: none;
         }
 
-        .philosophy-text {
+        .philosophy-content-wrapper {
             position: relative;
             z-index: 2;
-            text-align: center;
-            max-width: 1100px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .philosophy-text {
+            text-align: left;
+            margin-bottom: 60px;
         }
 
         .philosophy-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(44px, 6.5vw, 96px);
+            font-size: clamp(57px, 6.5vw, 96px);
             font-weight: 900;
             color: var(--charcoal);
             line-height: 1.08;
@@ -817,7 +829,99 @@
 
         .philosophy-text h2 em {
             font-style: italic;
-            color: var(--olive-green);
+            color: var(--gold);
+        }
+
+        .philosophy-images-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .philosophy-images-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .philosophy-images-grid img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            aspect-ratio: 2/3;
+            display: block;
+        }
+
+        .philosophy-charcoal-box {
+            position: absolute;
+            top: 85%;
+            right: 0;
+            width: 75%;
+            background: var(--charcoal);
+            padding: 35px 20px;
+            z-index: 3;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .philosophy-charcoal-box .sub-title {
+            font-size: 17px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .philosophy-charcoal-box .divider {
+            background-color: var(--gold);
+            width: 155px;
+            height: 2px;
+        }
+
+        .philosophy-charcoal-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+            max-width: none;
+        }
+
+        @media (max-width: 900px) {
+            .philosophy-text {
+                padding-left: 24px;
+            }
+
+            .philosophy-images-grid img {
+                height: auto;
+            }
+
+            .philosophy-charcoal-box {
+
+                p {
+                    font-size: 17px;
+                }
+
+                .sub-title {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .floating-img {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-img.visible {
+            opacity: 1;
         }
 
         .floating-img {
@@ -864,32 +968,23 @@
             transform: rotate(5deg) translateY(0);
         }
 
-        .philosophy-sub {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 80px;
+        .float-1.visible {
+            transform: rotate(-6deg) translateY(0);
         }
 
-        .philosophy-sub .sub-title {
-            font-size: 9px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--olive-dark);
-            font-weight: 500;
-            margin-bottom: 20px;
+        .float-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 5%;
+            transform: rotate(5deg) translateY(40px);
         }
 
-        .philosophy-sub p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            line-height: 1.9;
-            color: var(--olive-dark);
-            max-width: 560px;
-            margin: 0 auto;
+        .float-2.visible {
+            transform: rotate(5deg) translateY(0);
         }
+
+
 
         /* ======================== GALLERY ======================== */
         .section-gallery {
@@ -968,60 +1063,119 @@
         /* ======================== ORIGIN ======================== */
         .section-origin {
             position: relative;
+            background: var(--charcoal);
+            overflow: hidden;
             min-height: 100vh;
+        }
+
+        .origin-grid {
+            display: grid;
+            grid-template-columns: 60% 40%;
+            min-height: 100vh;
+            align-items: stretch;
+        }
+
+        .origin-content {
+            padding: 120px 8% 120px 10%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 220px 48px;
-            background: var(--warm-white);
+            background: var(--charcoal);
+            position: relative;
+            z-index: 2;
+        }
+
+        .origin-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(57px, 6.5vw, 96px);
+            font-weight: 900;
+            color: var(--cream);
+            line-height: 1.25;
+            margin-bottom: 0;
+        }
+
+        .origin-content h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .origin-content .divider {
+            background-color: var(--gold);
+            width: 155px;
+            height: 2px;
+            margin: 40px 0;
+        }
+
+        .origin-content .sub-title {
+            font-size: 17px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .origin-content p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+        }
+
+        .origin-gallery {
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .origin-carousel {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
-        .origin-text {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 1100px;
+        .origin-carousel .carousel-track {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            animation: slide-origin 20s infinite ease-in-out;
         }
 
-        .origin-text h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(44px, 6.5vw, 96px);
-            font-weight: 900;
-            color: var(--charcoal);
-            line-height: 1.08;
+        .origin-carousel .carousel-track img {
+            width: 25%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .origin-text h2 em {
-            font-style: italic;
-            color: var(--olive-green);
-        }
+        @keyframes slide-origin {
 
-        .origin-sub {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            margin-top: 80px;
-        }
+            0%,
+            20% {
+                transform: translateX(0%);
+            }
 
-        .origin-sub .sub-title {
-            font-size: 9px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--olive-dark);
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
+            25%,
+            45% {
+                transform: translateX(-25%);
+            }
 
-        .origin-sub p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            font-weight: 300;
-            line-height: 1.9;
-            color: var(--olive-dark);
-            max-width: 560px;
-            margin: 0 auto;
+            50%,
+            70% {
+                transform: translateX(-50%);
+            }
+
+            75%,
+            95% {
+                transform: translateX(-75%);
+            }
+
+            100% {
+                transform: translateX(0%);
+            }
         }
 
         /* ======================== VIDEO CINEMATIC ======================== */
@@ -1132,7 +1286,7 @@
             aspect-ratio: 3/4;
             border-radius: 4px;
             overflow: hidden;
-            background: var(--olive-dark);
+            background: var(--charcoal);
             position: relative;
         }
 
@@ -1397,7 +1551,7 @@
             font-size: 9px;
             letter-spacing: 5px;
             text-transform: uppercase;
-            color: var(--olive-green);
+            color: var(--gold);
             margin-bottom: 24px;
             display: flex;
             align-items: center;
@@ -1410,7 +1564,7 @@
             content: '';
             width: 40px;
             height: 1px;
-            background: var(--olive-green);
+            background: var(--gold);
             opacity: 0.4;
         }
 
@@ -1459,7 +1613,7 @@
             font-size: 9px;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--olive-dark);
+            color: var(--charcoal);
             font-weight: 500;
             margin-bottom: 20px;
         }
@@ -1618,9 +1772,11 @@
         .section-cta {
             position: relative;
             padding: 240px 48px;
-            background: var(--olive-dark);
+            background: var(--charcoal);
             text-align: center;
             overflow: hidden;
+            border-top: 1px solid color-mix(in srgb, var(--gold) 8%, transparent);
+            border-bottom: 1px solid color-mix(in srgb, var(--gold) 8%, transparent);
         }
 
         .section-cta::before {
@@ -1686,6 +1842,118 @@
             border: 1px solid rgba(196, 162, 101, 0.2);
             padding: 20px 32px;
             border-radius: 2px;
+        }
+
+        /* ======================== CERTIFICATIONS ======================== */
+        .section-certifications {
+            padding: 80px 48px;
+            background: var(--charcoal);
+        }
+
+        .cert-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cert-header .section-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .cert-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 900;
+            color: var(--cream);
+            line-height: 1.3;
+        }
+
+        .cert-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            text-align: center;
+        }
+
+        .cert-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 0 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .cert-item:not(:last-child) {
+            border-right: 1px solid rgba(196, 162, 101, 0.15);
+        }
+
+        .cert-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .cert-item img {
+            width: 48px;
+            height: 48px;
+            opacity: 0.85;
+            transition: opacity 0.4s ease;
+        }
+
+        .cert-item:hover img {
+            opacity: 1;
+        }
+
+        .cert-item span {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 140px;
+            transition: opacity 0.4s ease;
+        }
+
+        .cert-item:hover span {
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .section-certifications {
+                padding: 60px 24px;
+            }
+
+            .cert-header {
+                margin-bottom: 40px;
+            }
+
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0;
+            }
+
+            .cert-item {
+                padding: 20px 24px;
+            }
+
+            .cert-item:nth-child(1),
+            .cert-item:nth-child(2) {
+                border-bottom: 1px solid rgba(196, 162, 101, 0.15);
+            }
+
+            .cert-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .cert-item span {
+                font-size: 8px;
+                letter-spacing: 3px;
+            }
         }
 
         /* ======================== FOOTER ======================== */
@@ -1933,20 +2201,50 @@
                 display: none;
             }
 
+            .hero {
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-end;
+                padding: 90px 24px 24px;
+                min-height: 100svh;
+            }
+
             .hero-content {
-                padding: 0 24px;
+                padding: 0;
+                margin-bottom: 30px;
             }
 
             .hero-bottom {
-                left: 24px;
-                right: 24px;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
                 flex-direction: column;
-                gap: 20px;
+                gap: 16px;
                 align-items: flex-start;
+            }
+
+            .hero-badge {
+                padding: 14px 20px;
+            }
+
+            .hero-badge .badge-value {
+                font-size: 22px;
             }
 
             .hero-tagline {
                 text-align: left;
+            }
+
+            .hero-tagline .hero-subheading {
+                font-size: 8px;
+                letter-spacing: 3px;
+                margin-bottom: 8px;
+            }
+
+            .hero-tagline p {
+                font-size: 9px;
+                line-height: 1.8;
             }
 
             .scroll-indicator {
@@ -2022,6 +2320,28 @@
                 width: 180px;
             }
 
+            .section-origin {
+                padding: 0 !important;
+            }
+
+            .origin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .origin-gallery {
+                order: 1;
+                height: 50vh;
+            }
+
+            .origin-content {
+                order: 2;
+                padding: 60px 24px 80px 24px;
+            }
+
+            .origin-content h2 {
+                font-size: clamp(38px, 8vw, 56px);
+            }
+
             footer {
                 padding: 40px 24px;
             }
@@ -2030,6 +2350,156 @@
                 flex-direction: column;
                 gap: 24px;
                 text-align: center;
+            }
+        }
+
+        /* ======================== DACOSTA ======================== */
+        .section-dacosta {
+            padding: 160px 48px;
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid color-mix(in srgb, var(--gold) 8%, transparent);
+        }
+
+        .dacosta-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dacosta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .dacosta-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 4.5vw, 64px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--cream);
+            margin-bottom: 48px;
+            letter-spacing: -0.5px;
+        }
+
+        .dacosta-line {
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 30px;
+            opacity: 0.5;
+        }
+
+        .dacosta-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--cream);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .dacosta-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            font-weight: 400;
+        }
+
+        .dacosta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, color-mix(in srgb, var(--gold) 3%, transparent) 0%, transparent 80%);
+            pointer-events: none;
+        }
+
+        /* ======================== PROCESS BOTTLING CALLOUT ======================== */
+        .process-bottling-callout {
+            grid-column: span 3;
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px;
+            border: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
+            background: color-mix(in srgb, var(--gold) 3%, transparent);
+            border-radius: 2px;
+        }
+
+        .process-bottling-callout .callout-label {
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .process-bottling-callout p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--charcoal);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ======================== STORYTELLING CLAIM ======================== */
+        .storytelling-claim {
+            margin-top: 36px;
+            margin-bottom: 36px;
+            padding-top: 24px;
+            border-top: 1px solid color-mix(in srgb, var(--gold) 15%, transparent);
+        }
+
+        .storytelling-claim p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: color-mix(in srgb, var(--cream) 90%, transparent);
+        }
+
+        @media (max-width: 900px) {
+            .section-dacosta {
+                padding-left: 24px;
+                padding-right: 24px;
+                padding-top: 120px;
+                padding-bottom: 120px;
+            }
+
+            .process-bottling-callout {
+                grid-column: span 1;
+                padding: 24px;
+                margin-top: 40px;
+            }
+
+            .philosophy-charcoal-box {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                padding: 40px 24px;
+            }
+
+
+
+            .section-philosophy {
+                padding: 120px 0 60px 0;
             }
         }
     </style>
@@ -2073,6 +2543,7 @@
             </ul>
             <div class="nav-logo">
                 <div class="logo-text">EL POAIG</div>
+                <!-- REQUERIMIENTO 25-06 PUNTO 3 -->
                 <div class="logo-sub">Olivos Milenarios</div>
             </div>
             <ul class="nav-links">
@@ -2125,10 +2596,11 @@
                     <div class="badge-value">AOVE Milenario</div>
                 </div>
                 <div class="hero-tagline">
-                    <p>Aceite de oliva virgen extra orgánico de árboles de 1,000 a 3,000 años. Variedad Farga. Oliera de
-                        porcelana artesanal.</p>
+                    <span class="hero-subheading">AOVE ecológico rico en polifenoles de olivos milenarios Farga.</span>
+                    <p>El primer AOVE ecológico del mundo procedente de olivos milenarios Farga (de 1.000 a 3.000 años).
+                        Una edición limitada y numerada.</p>
                     <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank"
-                        class="discover-link">Adquiere Mi Oliera — &euro;265 <span class="arrow"></span></a>
+                        class="discover-link">Adquiere tu oliera numerada <span class="arrow"></span></a>
                 </div>
             </div>
             <div class="scroll-indicator">
@@ -2333,7 +2805,7 @@
                         <feGaussianBlur stdDeviation="2" />
                     </filter>
                 </defs>
-                <g fill="none" stroke="#6B7B3A" stroke-width="1.5" filter="url(#blur)">
+                <g fill="none" stroke="#C4A265" stroke-width="1.5" filter="url(#blur)">
                     <ellipse cx="400" cy="450" rx="300" ry="200" />
                     <ellipse cx="400" cy="450" rx="350" ry="240" />
                     <ellipse cx="400" cy="450" rx="420" ry="300" />
@@ -2346,23 +2818,28 @@
                 </g>
             </svg>
 
-            <div class="floating-img float-1">
-                <img src="../EL_MIL1.webp" alt="El Mil del Poaig">
-            </div>
-            <div class="floating-img float-2">
-                <img src="../IMG_0432.webp" alt="Olivos milenarios">
-            </div>
+            <div class="philosophy-content-wrapper">
+                <div class="philosophy-text reveal">
+                    <h2>Este aceite no se <em>fabrica.</em><br>Se <em>hereda.</em></h2>
+                </div>
 
-            <div class="philosophy-text reveal">
-                <h2>Este aceite no se <em>fabrica.</em> Se <em>hereda.</em></h2>
-            </div>
+                <div class="philosophy-images-container">
+                    <div class="philosophy-images-grid reveal">
+                        <img src="../assets/philosophy/philosophy1.webp" alt="Philosophy 1">
+                        <img src="../assets/philosophy/philosophy2.webp" alt="Philosophy 2">
+                        <img src="../assets/philosophy/philosophy3.webp" alt="Philosophy 3">
+                        <img src="../assets/philosophy/philosophy4.webp" alt="Philosophy 4">
+                    </div>
 
-            <div class="philosophy-sub reveal reveal-delay-1">
-                <div class="sub-title">Lo Que Producen 3,000 Años</div>
-                <p>Acidez inferior al 0,2%. Polifenoles por encima de 300 mg/kg. Cero aditivos, cero filtrado
-                    artificial. Las raíces de estos árboles alcanzan estratos minerales que ningún árbol joven podrá
-                    tocar jamás. El resultado es un perfil organoléptico irrepetible: intenso, complejo, con notas de
-                    almendra verde, tomate y hierba fresca.</p>
+                    <div class="philosophy-charcoal-box reveal reveal-delay-1">
+                        <div class="sub-title">Lo que producen árboles de 1.000 a 3.000 años</div>
+                        <div class="divider"></div>
+                        <p>Primer AOVE ECOLÓGICO de olivos milenarios. 350 mg/kg de polifenoles. Las raíces de estos
+                            árboles alcanzan estratos minerales que ningún árbol joven llegará a tocar jamás. El
+                            resultado es un perfil organoléptico irrepetible: intenso, complejo, con notas de almendra
+                            verde, tomate y hierba recién cortada.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2370,7 +2847,7 @@
         <section class="section-gallery">
             <div class="gallery-item">
                 <div class="img-reveal"></div>
-                <img src="../IMG_6036.webp" alt="Olivos milenarios del Maestrat">
+                <img src="../IMG_6036.webp" alt="Millenary Farga Olive Trees of the Maestrat">
                 <div class="gallery-caption">
                     <span>El Paisaje</span>
                     <p>Olivares milenarios del Maestrat</p>
@@ -2378,7 +2855,7 @@
             </div>
             <div class="gallery-item">
                 <div class="img-reveal"></div>
-                <img src="../2020-10-17_16.02.12_554bea07-41f5-4d7a-a864-122a44915d81.webp" alt="Cosecha tradicional">
+                <img src="../2020-10-17_16.02.12_554bea07-41f5-4d7a-a864-122a44915d81.webp" alt="Traditional harvest">
                 <div class="gallery-caption">
                     <span>La Tradición</span>
                     <p>Cosecha artesanal</p>
@@ -2386,51 +2863,66 @@
             </div>
             <div class="gallery-item">
                 <div class="img-reveal"></div>
-                <img src="../E84A9270-1_copia_b584fe40-0f49-4b38-b1d6-42c21b720209.webp"
-                    alt="Aceite de oliva virgen extra">
+                <img src="../E84A9270-1_copia_b584fe40-0f49-4b38-b1d6-42c21b720209.webp" alt="Extra virgin olive oil">
                 <div class="gallery-caption">
                     <span>El Producto</span>
-                    <p>Oro líquido, tres milenios de antigüedad</p>
+                    <p>Oro líquido, tres milenios de historia</p>
                 </div>
             </div>
         </section>
 
+        <!-- MARQUEE DIVIDER -->
+        <div class="gold-divider">
+            <div class="divider-inner">
+                <span>Árboles Milenarios</span>
+                <div class="divider-dot"></div>
+                <span>Edición Limitada</span>
+                <div class="divider-dot"></div>
+                <span>Variedad Farga</span>
+                <div class="divider-dot"></div>
+                <span>Maestrat, España</span>
+                <div class="divider-dot"></div>
+                <span>Porcelana 500ml</span>
+                <div class="divider-dot"></div>
+                <span>Orgánico Certificado</span>
+                <div class="divider-dot"></div>
+                <span>Árboles Milenarios</span>
+                <div class="divider-dot"></div>
+                <span>Edición Limitada</span>
+                <div class="divider-dot"></div>
+                <span>Variedad Farga</span>
+                <div class="divider-dot"></div>
+                <span>Maestrat, España</span>
+                <div class="divider-dot"></div>
+                <span>Porcelana 500ml</span>
+                <div class="divider-dot"></div>
+                <span>Orgánico Certificado</span>
+                <div class="divider-dot"></div>
+            </div>
+        </div>
+
         <!-- ORIGIN -->
         <section class="section-origin" id="origin">
-            <svg class="topo-bg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="blur2">
-                        <feGaussianBlur stdDeviation="2" />
-                    </filter>
-                </defs>
-                <g fill="none" stroke="#6B7B3A" stroke-width="1.5" filter="url(#blur2)">
-                    <ellipse cx="720" cy="450" rx="200" ry="150" />
-                    <ellipse cx="720" cy="450" rx="300" ry="220" />
-                    <ellipse cx="720" cy="450" rx="400" ry="300" />
-                    <ellipse cx="720" cy="450" rx="520" ry="380" />
-                    <ellipse cx="200" cy="200" rx="180" ry="120" />
-                    <ellipse cx="200" cy="200" rx="280" ry="200" />
-                    <ellipse cx="1200" cy="700" rx="200" ry="140" />
-                    <ellipse cx="1200" cy="700" rx="320" ry="240" />
-                </g>
-            </svg>
-
-            <div class="floating-img float-1" style="top:20%; left:5%;">
-                <img src="../IMG_0432.webp" alt="Paisaje del Maestrat">
-            </div>
-            <div class="floating-img float-2" style="bottom:15%; right:5%;">
-                <img src="../EL_MIL2.webp" alt="Oliera de porcelana">
-            </div>
-
-            <div class="origin-text reveal">
-                <h2>El <em>Maestrat,</em> donde el tiempo se mide en <em>cosechas.</em></h2>
-            </div>
-
-            <div class="origin-sub reveal reveal-delay-1">
-                <div class="sub-title">Castellón. Interior Montañoso. 600m de Altitud.</div>
-                <p>Suelos calizos, clima continental con inviernos duros y veranos secos. Las condiciones exactas que
-                    estresan el olivo lo justo para concentrar todo su sabor en cada aceituna. Sin riego, sin atajos.
-                    Solo la variedad Farga, nativa de este territorio, sobrevive y prospera en estas laderas.</p>
+            <div class="origin-grid">
+                <div class="origin-content">
+                    <h2 class="reveal">El <em>Maestrat,</em><br>donde el tiempo<br>se mide en<br><em>cosechas.</em></h2>
+                    <div class="divider reveal reveal-delay-1"></div>
+                    <div class="sub-title reveal reveal-delay-1">Castellón. Interior Montañoso. 600m de Altitud.</div>
+                    <p class="reveal reveal-delay-2">Suelos calizos, clima mediterráneo con inviernos rigurosos y
+                        veranos secos. Las condiciones exactas que estresan al olivo lo justo para concentrar todo su
+                        sabor en cada oliva. Sin riego, sin atajos. Solo la variedad Farga, autóctona de este
+                        territorio, sobrevive y prospera en estas laderas.</p>
+                </div>
+                <div class="origin-gallery reveal-right reveal-delay-1">
+                    <div class="origin-carousel">
+                        <div class="carousel-track">
+                            <img src="../assets/origin/origin2.webp" alt="origin Image 2">
+                            <img src="../assets/origin/origin1.webp" alt="origin Image 1">
+                            <img src="../assets/origin/origin4.webp" alt="origin Image 4">
+                            <img src="../assets/origin/origin3.webp" alt="origin Image 3">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2448,18 +2940,31 @@
             </div>
         </section>
 
+        <!-- ======================== QUIQUE DACOSTA DESTACADO ======================== -->
+        <section class="section-dacosta">
+            <div class="dacosta-container">
+                <span class="dacosta-label">Respaldo Gastronómico</span>
+                <h2 class="dacosta-quote">"El Mil del Poaig, en nuestra mesa desde el principio."</h2>
+                <div class="dacosta-line"></div>
+                <h3 class="dacosta-name">Quique Dacosta</h3>
+                <p class="dacosta-subtitle">Restaurante Quique Dacosta · 3 Estrellas Michelin</p>
+            </div>
+            <div class="dacosta-bg"></div>
+        </section>
+
         <!-- COUNTER -->
         <section class="section-counter">
             <div class="counter-grid">
                 <div class="counter-item reveal">
                     <div class="counter-value" data-target="3000">0</div>
                     <div class="counter-line"></div>
-                    <div class="counter-label">Años de Historia</div>
+                    <div class="counter-label">Años de Historia (de 1.000 a 3.000)</div>
                 </div>
                 <div class="counter-item reveal reveal-delay-1">
                     <div class="counter-value" data-target="615">0</div>
                     <div class="counter-line"></div>
-                    <div class="counter-label">Olieras por Temporada</div>
+                    <div class="counter-label">Olieras de porcelana esta temporada (la producción varía cada cosecha, de
+                        octubre a octubre)</div>
                 </div>
                 <div class="counter-item reveal reveal-delay-2">
                     <div class="counter-value" data-target="500">0</div>
@@ -2483,15 +2988,16 @@
                     <div class="img-frame">
                         <img src="../EL_MIL2.webp" alt="El Mil del Poaig">
                     </div>
-                    <div class="edition-tag">Solo 615 Unidades</div>
+                    <div class="edition-tag">615 olieras de porcelana esta temporada (la producción varía cada cosecha,
+                        de octubre a octubre)</div>
                 </div>
                 <div class="product-info">
                     <div class="product-label reveal-right">El Producto</div>
                     <h3 class="reveal-right reveal-delay-1">El Mil del Poaig</h3>
                     <p class="product-desc reveal-right reveal-delay-2">No existe otro aceite como este. Variedad Farga
-                        de árboles de hasta 3,000 años, con certificación orgánica y un rendimiento de extracción del 9%
-                        — donde la industria apunta al 20%. Menos aceite por aceituna, pero cada gota preserva todo el
-                        espectro de sus polifenoles y aromas.</p>
+                        procedente de árboles de entre 1.000 y 3.000 años de antigüedad, con certificación ecológica y
+                        un rendimiento de extracción del 9% (frente al 20% habitual en la industria). Menos aceite por
+                        aceituna, pero cada gota conserva todo el espectro de sus polifenoles y aromas.</p>
 
                     <div class="product-details reveal-right reveal-delay-2">
                         <div class="detail-item">
@@ -2502,18 +3008,30 @@
                             <div class="detail-label">Recipiente</div>
                             <div class="detail-value">Porcelana Artesanal</div>
                         </div>
+                        <!-- REQUERIMIENTO 25-06 PUNTO 5 -->
                         <div class="detail-item">
-                            <div class="detail-label">Acidez</div>
-                            <div class="detail-value">&lt; 0,2%</div>
+                            <div class="detail-label">Polifenoles</div>
+                            <div class="detail-value">350 mg/kg</div>
                         </div>
+                        <!-- REQUERIMIENTO 25-06 PUNTO 4 -->
                         <div class="detail-item">
                             <div class="detail-label">Producción</div>
-                            <div class="detail-value">615 unidades/temporada</div>
+                            <div class="detail-value" style="font-size: 11px; line-height: 1.4;">615 olieras de
+                                porcelana esta temporada (la producción varía cada cosecha, de octubre a octubre)</div>
                         </div>
                     </div>
 
+                    <div class="storytelling-claim reveal-right reveal-delay-2">
+                        <p>
+                            "El Poaig no nació para hacer aceite. Nació para proteger un paisaje, un territorio y uno de
+                            los símbolos más antiguos del Maestrat: sus olivos milenarios. No trabajamos con volumen. No
+                            buscamos estar en todas partes. No embotellamos nada que no alcance la máxima calidad. Por
+                            eso El Poaig no siempre está disponible. Por eso no es para todo el mundo."
+                        </p>
+                    </div>
+
                     <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank"
-                        class="btn-primary reveal-right reveal-delay-3">Comprar — &euro;265</a>
+                        class="btn-primary reveal-right reveal-delay-3">Adquiere tu oliera numerada</a>
                 </div>
             </div>
         </section>
@@ -2523,8 +3041,7 @@
             <div class="process-header">
                 <div class="olive-divider" style="margin-bottom: 40px;">
                     <svg viewBox="0 0 280 40" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="none" stroke="var(--olive-green)" stroke-width="0.8" stroke-linecap="round"
-                            opacity="0.5">
+                        <g fill="none" stroke="var(--gold)" stroke-width="0.8" stroke-linecap="round" opacity="0.5">
                             <path d="M 0 20 Q 70 20 140 20 Q 210 20 280 20" />
                             <path d="M 100 20 Q 110 10 120 8 Q 115 14 120 20" />
                             <path d="M 110 20 Q 115 28 125 32 Q 118 26 120 20" />
@@ -2532,7 +3049,7 @@
                             <path d="M 148 20 Q 152 28 162 32 Q 155 26 155 20" />
                             <path d="M 170 20 Q 178 12 186 10 Q 181 15 183 20" />
                             <path d="M 175 20 Q 180 27 188 30 Q 182 25 183 20" />
-                            <circle cx="140" cy="20" r="2" fill="var(--olive-green)" opacity="0.4" />
+                            <circle cx="140" cy="20" r="2" fill="var(--gold)" opacity="0.4" />
                         </g>
                     </svg>
                 </div>
@@ -2544,23 +3061,32 @@
                 <div class="step reveal">
                     <div class="step-number">01</div>
                     <div class="step-title">La Poda</div>
-                    <p class="step-desc">Eliminamos ramas viejas para que el árbol canalice toda su energía hacia menos
-                        frutos. El resultado: aceitunas con la proporción óptima de pulpa a hueso y mayor concentración
-                        de antioxidantes.</p>
+                    <p class="step-desc">Eliminamos las ramas viejas para que el árbol canalice toda su energía en menos
+                        frutos. El resultado: aceitunas con una relación pulpa-hueso óptima y mayor concentración de
+                        antioxidantes.</p>
                 </div>
                 <div class="step reveal reveal-delay-1">
                     <div class="step-number">02</div>
                     <div class="step-title">La Cosecha</div>
-                    <p class="step-desc">Técnica de ordeño mecánico que protege yemas y corteza. De la rama al molino en
-                        menos de 4 horas, para que la aceituna ni se oxide ni pierda un solo matiz aromático.</p>
+                    <p class="step-desc">Técnica de ordeño mecánico respetuosa con los brotes y la corteza. De la rama
+                        al molino en menos de 4 horas, para que la aceituna no se oxide ni pierda un solo matiz
+                        aromático.</p>
                 </div>
                 <div class="step reveal reveal-delay-2">
                     <div class="step-number">03</div>
                     <div class="step-title">La Extracción</div>
-                    <p class="step-desc">Batido a temperatura ambiente con bajas tasas de inyección. Donde otros extraen
-                        un 20%, nosotros obtenemos un 9%. Menos cantidad, pero cada gota conserva toda la integridad de
-                        sus polifenoles y aromas.</p>
+                    <p class="step-desc">Molido a baja temperatura con bajo rendimiento de extracción. Mientras la
+                        industria busca rendimientos cercanos al 20%, nosotros aceptamos solo el 9% para preservar la
+                        integridad. Menos cantidad, pero cada gota conserva la pureza de sus polifenoles y aromas.</p>
                 </div>
+            </div>
+
+            <div class="process-bottling-callout reveal reveal-delay-3">
+                <div class="callout-label">Preservación Pura</div>
+                <p>
+                    "Este aceite nunca se embotella por adelantado. Permanece protegido de la oxidación en tanques de
+                    acero inoxidable sin oxígeno hasta el momento de tu pedido. Envasado bajo demanda. Nunca antes."
+                </p>
             </div>
         </section>
 
@@ -2600,11 +3126,37 @@
             <div class="cta-content">
                 <div class="section-label reveal">Temporada 2025/2026 — Pocas Unidades Disponibles</div>
                 <h2 class="reveal reveal-delay-1">Para quienes saben que lo auténtico nunca se fabrica en masa.</h2>
-                <p class="cta-sub reveal reveal-delay-2">Solo 615 olieras por temporada · Envío gratuito mundial ·
+                <p class="cta-sub reveal reveal-delay-2">Solo 615 olieras de porcelana por temporada · Envío gratuito
+                    mundial ·
                     Garantía de satisfacción total</p>
-                <div class="cta-price reveal reveal-delay-2 shimmer">&euro;265</div>
                 <a href="https://www.elpoaig.com/products/el-mil-02-olive-oil" target="_blank"
-                    class="btn-primary reveal reveal-delay-3">Adquiere Mi Oliera</a>
+                    class="btn-primary reveal reveal-delay-3">Adquiere tu oliera numerada</a>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <section class="section-certifications">
+            <div class="cert-header reveal">
+                <div class="section-label">Certificaciones y Distinciones</div>
+                <h2>Reconocido por los estándares más exigentes</h2>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-item reveal reveal-delay-1">
+                    <img src="../icons/cert-organic.svg" alt="Agricultura ecológica certificada">
+                    <span>Agricultura ecológica certificada</span>
+                </div>
+                <div class="cert-item reveal reveal-delay-2">
+                    <img src="../icons/millenary-tree.svg" alt="Origen de olivos milenarios">
+                    <span>Origen de olivos milenarios</span>
+                </div>
+                <div class="cert-item reveal reveal-delay-3">
+                    <img src="../icons/polyphenol-flask.svg" alt="Análisis de polifenoles">
+                    <span>Análisis de polifenoles</span>
+                </div>
+                <div class="cert-item reveal reveal-delay-4">
+                    <img src="../icons/porcelain-oliera.svg" alt="Oliera de porcelana numerada">
+                    <span>Oliera de porcelana numerada</span>
+                </div>
             </div>
         </section>
 
